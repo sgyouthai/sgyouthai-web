@@ -29,7 +29,7 @@ export function SignUpForm() {
         </h3>
 
         <p className="text-green-600">
-          We've sent a confirmation link to {email}
+          We&apos;ve sent a confirmation link to {email}
         </p>
 
         <p className="text-sm text-gray-600 mt-2">

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { api } from "@/app/providers";
 import { CreatePostForm } from "@/components/posts/create-post-form";
 import { PostCard } from "@/components/posts/post-card";

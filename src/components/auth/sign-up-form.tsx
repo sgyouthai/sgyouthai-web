@@ -9,16 +9,35 @@ export function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const signUpMutation = api.auth.signUp.useMutation({
     onSuccess: () => {
-      alert("Check your email to confirm your account!");
-      router.push("/auth/sign-in");
+      setIsSuccess(true);
+      router.push("/auth/confirm");
     },
     onError: (error) => {
       alert(`Error: ${error.message}`);
     },
   });
+
+  if (isSuccess) {
+    return (
+      <div className="text-center p-6 bg-green-50 rounded-lg">
+        <h3 className="text-lg font-semibold text-green-800 mb-2">
+          Check your email!
+        </h3>
+
+        <p className="text-green-600">
+          We've sent a confirmation link to {email}
+        </p>
+
+        <p className="text-sm text-gray-600 mt-2">
+          Click the link in the email to confirm your account.
+        </p>
+      </div>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

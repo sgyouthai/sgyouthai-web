@@ -1,0 +1,70 @@
+import { z } from "zod";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "@/server/api/trpc";
+import { TRPCError } from "@trpc/server";
+
+export const authRouter = createTRPCRouter({
+  getSession: publicProcedure.query(({ ctx }) => {
+    return ctx.user;
+  }),
+
+  signUp: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+        fullName: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { data, error } = await ctx.supabase.auth.signUp({
+        email: input.email,
+        password: input.password,
+        options: {
+          data: {
+            full_name: input.fullName,
+          },
+        },
+      });
+
+      if (error) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: error.message,
+        });
+      }
+
+      return { success: true, user: data.user };
+    }),
+
+  signIn: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { data, error } = await ctx.supabase.auth.signInWithPassword({
+        email: input.email,
+        password: input.password,
+      });
+
+      if (error) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: error.message,
+        });
+      }
+
+      return { success: true, user: data.user };
+    }),
+
+  signOut: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.supabase.auth.signOut();
+    return { success: true };
+  }),
+});

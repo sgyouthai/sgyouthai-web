@@ -62,9 +62,10 @@ export const profileRouter = createTRPCRouter({
         .single();
 
       if (error) {
+        console.error("Database error:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: error.message,
+          message: "An error occurred while processing your request",
         });
       }
 

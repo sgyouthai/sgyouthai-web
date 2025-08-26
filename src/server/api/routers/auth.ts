@@ -8,6 +8,10 @@ import { TRPCError } from "@trpc/server";
 
 export const authRouter = createTRPCRouter({
   getSession: publicProcedure.query(({ ctx }) => {
+    // Debug logging
+    if (!ctx.user) {
+      console.log("No user in session");
+    }
     return ctx.user;
   }),
 
@@ -15,7 +19,13 @@ export const authRouter = createTRPCRouter({
     .input(
       z.object({
         email: z.string().email(),
-        password: z.string().min(6),
+        password: z
+          .string()
+          .min(12)
+          .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+            "Password must contain uppercase, lowercase, number and special character"
+          ),
         fullName: z.string().optional(),
       })
     )

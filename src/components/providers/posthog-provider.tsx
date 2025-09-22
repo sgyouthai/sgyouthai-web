@@ -13,11 +13,19 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       process.env.NEXT_PUBLIC_POSTHOG_HOST
     ) {
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+        ui_host:
+          process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+        api_host: "/relay-UYdl/",
+        person_profiles: "always",
+        enable_heatmaps: true,
+        autocapture: true,
+        capture_pageleave: true,
+        capture_pageview: false,
+        advanced_disable_feature_flags: true, // Disable feature flags if not needed
+        advanced_disable_feature_flags_on_first_load: true,
         loaded: (posthog) => {
-          if (process.env.NODE_ENV === "development") posthog.debug();
+          if (process.env.NODE_ENV === "development") posthog.debug(false); // Turn off debug in prod
         },
-        capture_pageview: false, // Disable automatic pageview capture
       });
     }
   }, []);

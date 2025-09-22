@@ -7,7 +7,6 @@ import { useEffect } from "react";
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Only initialize if we have the required env vars
-    console.log(process.env.NEXT_PUBLIC_POSTHOG_KEY);
     if (
       typeof window !== "undefined" &&
       process.env.NEXT_PUBLIC_POSTHOG_KEY &&

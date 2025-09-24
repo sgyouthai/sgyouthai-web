@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import { PostHogProvider } from "@/components/providers/posthog-provider";
 import Script from "next/script";
 import { totalMembers } from "./const";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -193,6 +194,7 @@ export default function RootLayout({
 
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        <SpeedInsights />
       </body>
     </html>
   );

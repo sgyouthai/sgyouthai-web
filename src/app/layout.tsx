@@ -7,6 +7,7 @@ import { PostHogProvider } from "@/components/providers/posthog-provider";
 import Script from "next/script";
 import { totalMembers } from "./const";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -195,6 +196,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <WebSiteJsonLd />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

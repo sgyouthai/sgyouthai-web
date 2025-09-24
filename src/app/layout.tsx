@@ -166,7 +166,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr">
       <body
-        className={`${dm_sans.className} antialiased min-h-screen flex flex-col overscroll-x-auto`}
+        className={`${dm_sans.className} antialiased fullHeight flex flex-col overscroll-x-auto dark bg-[#000100]`}
       >
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (

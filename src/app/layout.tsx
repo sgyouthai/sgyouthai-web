@@ -8,6 +8,7 @@ import Script from "next/script";
 import { totalMembers } from "./const";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import AOSProvider from "@/components/providers/aos-provider";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -188,7 +189,7 @@ export default function RootLayout({
 
         <PostHogProvider>
           <TRPCReactProvider>
-            {children}
+            <AOSProvider>{children}</AOSProvider>
             <Toaster richColors />
           </TRPCReactProvider>
         </PostHogProvider>

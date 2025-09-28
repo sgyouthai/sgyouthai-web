@@ -15,7 +15,7 @@ export default function HomePage() {
             loading="eager"
             src="/background.svg"
             alt=""
-            className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse animate-ping"
+            className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse"
             style={{
               animationDuration: "10s",
             }}

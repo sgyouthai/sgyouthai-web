@@ -1,19 +1,33 @@
 "use client";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const logos = ["/window.svg", "/vercel.svg", "/file.svg"]; // 40–80px tall PNG/SVGs
 
-export default function LogoMarquee() {
+interface LogoMarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Animation duration in seconds */
+  speed?: number;
+}
+
+export default function LogoMarquee({
+  speed = 25,
+  className,
+  ...rest
+}: LogoMarqueeProps) {
   const row = [...logos, ...logos];
   return (
-    <div className="relative w-full overflow-hidden py-6">
+    <div
+      className={cn("relative w-full overflow-hidden py-6", className)}
+      {...rest}
+    >
       <div className="mask-fade-x">
         {/* IMPORTANT: no gap on the animated track */}
         <div
           className="
             flex w-max gap-0 will-change-transform
-            animate-[marquee_5s_linear_infinite]
+            animate-[marquee_linear_infinite]
           "
+          style={{ animationDuration: `${speed}s` }}
         >
           {/* Clone A with internal spacing */}
           <Row logos={row} />

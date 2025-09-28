@@ -103,7 +103,7 @@ export default function SiteNavbar() {
         </Link>
         <Separator
           orientation="vertical"
-          className="h-10! mx-3"
+          className="h-10! mx-3 hidden md:block"
           style={{
             background:
               "linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%)",

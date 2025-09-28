@@ -42,31 +42,41 @@ export default function SiteNavbar() {
     { label: "Home", href: "/", match: (p) => p === "/" },
     { label: "About", href: "/about", match: (p) => p.startsWith("/about") },
     {
-      label: "Portfolio",
-      href: "/portfolio",
-      match: (p) => p.startsWith("/portfolio"),
+      label: "Programs",
+      href: "/programs",
+      match: (p) => p.startsWith("/programs"),
       children: [
         {
-          label: "Client Work",
-          href: "/portfolio/clients",
-          match: (p) => p.startsWith("/portfolio/clients"),
+          label: "AI Monthly Meetups",
+          href: "/programs/clients",
+          match: (p) => p.startsWith("/programs/clients"),
         },
         {
-          label: "Open Source",
-          href: "/portfolio/oss",
-          match: (p) => p.startsWith("/portfolio/oss"),
+          label: "SYAI Inspire",
+          href: "/programs/inspire",
+          match: (p) => p.startsWith("/programs/oss"),
         },
         {
-          label: "Case Studies",
-          href: "/portfolio/cases",
-          match: (p) => p.startsWith("/portfolio/cases"),
+          label: "SYAI Labs",
+          href: "/programs/cases",
+          match: (p) => p.startsWith("/programs/cases"),
         },
       ],
     },
     {
-      label: "Contact",
-      href: "/contact",
-      match: (p) => p.startsWith("/contact"),
+      label: "Team",
+      href: "/team",
+      match: (p) => p.startsWith("/team"),
+    },
+    {
+      label: "Partners",
+      href: "/partners",
+      match: (p) => p.startsWith("/partners"),
+    },
+    {
+      label: "Highlights",
+      href: "/highlights",
+      match: (p) => p.startsWith("/highlights"),
     },
     { label: "FAQ", href: "#faq", match: () => false }, // hash example
   ];
@@ -78,7 +88,7 @@ export default function SiteNavbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl bg-gradient-to-b from-black/0 to-black/30">
-      <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-26 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="relative -ml-1 flex items-center gap-3">
           <span className="relative inline-block h-16 w-16">
@@ -90,12 +100,15 @@ export default function SiteNavbar() {
               priority
             />
           </span>
-          <Separator
-            orientation="vertical"
-            className="hidden h-6 bg-white/20 md:inline-flex"
-          />
         </Link>
-
+        <Separator
+          orientation="vertical"
+          className="h-10! mx-3"
+          style={{
+            background:
+              "linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%)",
+          }}
+        />
         {/* Desktop menu */}
         <div className="hidden w-full items-center gap-6 md:flex">
           <ul className="mr-auto flex items-center gap-4 lg:gap-6">
@@ -110,7 +123,12 @@ export default function SiteNavbar() {
               if (item.href.startsWith("#") && !item.children?.length) {
                 return (
                   <li key={item.href}>
-                    <NavLink href={item.href} active={isActive} hashLink>
+                    <NavLink
+                      href={item.href}
+                      active={isActive}
+                      hashLink
+                      className="text-[16px] font-normal"
+                    >
                       {item.label}
                     </NavLink>
                   </li>
@@ -124,7 +142,7 @@ export default function SiteNavbar() {
                     <DropdownMenu>
                       <DropdownMenuTrigger
                         className={cn(
-                          "inline-flex items-center gap-1 text-sm font-medium text-white/60 transition-opacity hover:opacity-100 focus:outline-none",
+                          "inline-flex items-center gap-1 text-[16px] font-normal text-white/60 transition-opacity hover:opacity-100 focus:outline-none",
                           isActive && "opacity-100"
                         )}
                       >
@@ -138,14 +156,20 @@ export default function SiteNavbar() {
                       >
                         {/* Optional: include parent as first link */}
                         <DropdownMenuItem asChild>
-                          <Link href={item.href} className="w-full">
+                          <Link
+                            href={item.href}
+                            className="w-full text-[16px] font-normal"
+                          >
                             View all
                           </Link>
                         </DropdownMenuItem>
                         <div className="my-1 h-px bg-white/10" />
                         {item.children.map((c) => (
                           <DropdownMenuItem key={c.href} asChild>
-                            <Link href={c.href} className="w-full">
+                            <Link
+                              href={c.href}
+                              className="w-full text-[16px] font-normal"
+                            >
                               {c.label}
                             </Link>
                           </DropdownMenuItem>
@@ -159,7 +183,11 @@ export default function SiteNavbar() {
               // Regular link
               return (
                 <li key={item.href}>
-                  <NavLink href={item.href} active={isActive}>
+                  <NavLink
+                    href={item.href}
+                    active={isActive}
+                    className="text-[16px] font-normal"
+                  >
                     {item.label}
                   </NavLink>
                 </li>

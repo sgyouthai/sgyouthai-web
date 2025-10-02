@@ -7,18 +7,7 @@ import { Separator } from "@radix-ui/react-separator";
 export default function Hero() {
   return (
     <section>
-      <Image
-        loading="eager"
-        src="/background.svg"
-        alt=""
-        className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse"
-        style={{
-          animationDuration: "10s",
-        }}
-        width={256}
-        height={214}
-      />
-      <div className="max-w-7xl mx-auto py-22 md:py-40 px-7 md:px-10 relative">
+      <div className="max-w-7xl mx-auto py-22 pb-10 md:py-40 relative">
         <Image
           className="absolute w-[250px] bottom-1/6 right-0 md:block hidden"
           src="/HEY.png"
@@ -36,7 +25,7 @@ export default function Hero() {
             Singapore&apos;s Largest AI Community
           </h1>
           <p
-            className="font-light text-current/60 max-w-md leading-[26px]"
+            className="text-current/60 max-w-md leading-[26px]"
             data-aos="fade"
             data-aos-delay="100"
           >

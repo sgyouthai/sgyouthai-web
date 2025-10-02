@@ -173,3 +173,8 @@
     transform: none !important;
   }
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding: calc(104px + 96px / 2);
+}

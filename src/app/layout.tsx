@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AOSProvider from "@/components/providers/aos-provider";
+import Image from "next/image";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -194,6 +195,17 @@ export default function RootLayout({
             <AOSProvider>
               <Navbar />
               {children}
+              <Image
+                loading="eager"
+                src="/background.svg"
+                alt=""
+                className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse"
+                style={{
+                  animationDuration: "10s",
+                }}
+                width={256}
+                height={214}
+              />
               <Footer />
             </AOSProvider>
             <Toaster richColors />

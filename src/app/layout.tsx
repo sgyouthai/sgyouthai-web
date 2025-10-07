@@ -8,8 +8,6 @@ import Script from "next/script";
 import { totalMembers } from "./const";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import AOSProvider from "@/components/providers/aos-provider";
 import Image from "next/image";
 
@@ -193,7 +191,6 @@ export default function RootLayout({
         <PostHogProvider>
           <TRPCReactProvider>
             <AOSProvider>
-              <Navbar />
               {children}
               <Image
                 loading="eager"
@@ -206,9 +203,8 @@ export default function RootLayout({
                 width={256}
                 height={214}
               />
-              <Footer />
+              <Toaster richColors />
             </AOSProvider>
-            <Toaster richColors />
           </TRPCReactProvider>
         </PostHogProvider>
 

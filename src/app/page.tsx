@@ -26,6 +26,7 @@ export default function HomePage() {
           }}
         />
         <EventGallery />
+        {/* <Gallery /> */}
       </main>
     </div>
   );

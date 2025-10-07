@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Marquee,
-  MarqueeFade,
-  MarqueeContent,
-  MarqueeItem,
-} from "@/components/ui/shadcn-io/marquee";
+import Marquee from "react-fast-marquee";
 // import { api } from "@/app/providers";
 
 export default function EventGallery() {
@@ -27,21 +22,32 @@ export default function EventGallery() {
     "/gallery/deepracedash2.png",
   ];
 
+  const rows = [gallery.slice(0, 4), gallery.slice(4, 8), gallery.slice(8, 12)];
+
   return (
     <section id="gallery">
       <div className="flex flex-col items-center flex-nowrap justify-center h-min relative gap-[70px]">
         <div className="flex flex-col gap-[30px]">
-          <h1 className="text-center text-[35px] md:text-[54px] tracking-[-2] md:tracking-[-1.9] leading-[32px] md:leading-[50px]">
+          <h1
+            data-aos="fade"
+            className="text-center text-[35px] md:text-[54px] tracking-[-2] md:tracking-[-1.9] leading-[32px] md:leading-[50px]"
+          >
             Event Gallery
           </h1>
-          <p className="text-current/60 max-w-md leading-[26px]">
+          <p
+            data-aos="fade"
+            data-aos-delay="100"
+            className="text-current/60 max-w-md leading-[26px]"
+          >
             A glimpse into our vibrant community events and activities.
           </p>
         </div>
         <>
           <div
+            data-aos="fade"
+            data-aos-delay="200"
             data-framer-name="Left Detail"
-            className="items-center absolute bottom-[25px] left-[-400px] md:bottom-[50px] md:left-[-400px] flex-none"
+            className="items-center absolute top-[25px] left-[-460px] md:top-[50px] md:left-[-400px] flex-none"
           >
             <div
               data-framer-component-type="SVG"
@@ -120,7 +126,9 @@ export default function EventGallery() {
           </div>
 
           <div
-            className="items-center absolute bottom-[25px] right-[-400px] md:bottom-[50px] md:right-[-400px] flex-none"
+            data-aos="fade"
+            data-aos-delay="200"
+            className="items-center absolute top-[25px] right-[-460px] md:top-[50px] md:right-[-400px] flex-none"
             data-framer-name="Right Detail"
           >
             <div
@@ -199,100 +207,82 @@ export default function EventGallery() {
             </div>
           </div>
         </>
-        <div className="flex flex-col gap-[30px]">
-          <Marquee>
-            <MarqueeContent
-              pauseOnHover={false}
-              className="overflow-hidden"
-              speed={50}
-            >
-              {gallery.splice(0, 4)?.map((image, index) => (
-                <MarqueeItem
-                  className="h-64 aspect-[4/3] object-cover rounded-2xl"
-                  key={index}
+        <div
+          className="flex w-[100dvw] flex-col justify-center gap-[30px] relative"
+          data-aos="fade"
+          data-aos-delay="300"
+        >
+          <Marquee speed={50} autoFill={true} pauseOnHover>
+            {rows[0]?.map((image, index) => (
+              <div
+                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                key={index}
+              >
+                <div
+                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                  }}
                 >
-                  <div
-                    className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                    }}
-                  >
-                    <Image
-                      loading="lazy"
-                      src={image}
-                      alt={`Gallery image ${(index % 4) + 1}`}
-                      width={400}
-                      height={300}
-                      className="w-full h-full object-cover rounded-2xl"
-                    />
-                  </div>
-                </MarqueeItem>
-              ))}
-            </MarqueeContent>
+                  <Image
+                    src={image}
+                    alt={`Gallery image ${(index % 4) + 1}`}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                </div>
+              </div>
+            ))}
           </Marquee>
-          <Marquee>
-            <MarqueeContent
-              pauseOnHover={false}
-              direction="right"
-              className="overflow-hidden justify-self-end"
-              speed={50}
-            >
-              {gallery.splice(0, 4)?.map((image, index) => (
-                <MarqueeItem
-                  className="h-64 aspect-[4/3] object-cover rounded-2xl"
-                  key={index}
+          <Marquee speed={50} direction="right" autoFill={true} pauseOnHover>
+            {rows[1].map((image, index) => (
+              <div
+                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                key={index}
+              >
+                <div
+                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                  }}
                 >
-                  <div
-                    className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                    }}
-                  >
-                    <Image
-                      loading="lazy"
-                      src={image}
-                      alt={`Gallery image ${(index % 4) + 1}`}
-                      width={400}
-                      height={300}
-                      className="w-full h-full object-cover rounded-2xl"
-                    />
-                  </div>
-                </MarqueeItem>
-              ))}
-            </MarqueeContent>
+                  <Image
+                    src={image}
+                    alt={`Gallery image ${(index % 4) + 1}`}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                </div>
+              </div>
+            ))}
           </Marquee>
-          <Marquee>
-            <MarqueeContent
-              pauseOnHover={false}
-              className="overflow-hidden"
-              speed={50}
-            >
-              {gallery.splice(0, 4)?.map((image, index) => (
-                <MarqueeItem
-                  className="h-64 aspect-[4/3] object-cover rounded-2xl"
-                  key={index}
+          <Marquee direction="left" speed={50} autoFill={true} pauseOnHover>
+            {rows[2]?.map((image, index) => (
+              <div
+                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                key={index}
+              >
+                <div
+                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                  }}
                 >
-                  <div
-                    className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                    }}
-                  >
-                    <Image
-                      loading="lazy"
-                      src={image}
-                      alt={`Gallery image ${(index % 4) + 1}`}
-                      width={400}
-                      height={300}
-                      className="w-full h-full object-cover rounded-2xl"
-                    />
-                  </div>
-                </MarqueeItem>
-              ))}
-            </MarqueeContent>
+                  <Image
+                    src={image}
+                    alt={`Gallery image ${(index % 4) + 1}`}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                </div>
+              </div>
+            ))}
           </Marquee>
         </div>
       </div>

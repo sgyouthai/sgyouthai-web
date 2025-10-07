@@ -27,7 +27,10 @@ export default function LogoMarquee({
             flex w-max gap-0 will-change-transform
             animate-[marquee_linear_infinite]
           "
-          style={{ animationDuration: `${speed}s` }}
+          style={{
+            animationDuration: `${speed}s`,
+            animationDirection: "reverse",
+          }}
         >
           {/* Clone A with internal spacing */}
           <Row logos={row} />

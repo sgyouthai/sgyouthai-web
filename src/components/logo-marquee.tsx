@@ -29,7 +29,6 @@ export default function LogoMarquee({
           "
           style={{
             animationDuration: `${speed}s`,
-            animationDirection: "reverse",
           }}
         >
           {/* Clone A with internal spacing */}

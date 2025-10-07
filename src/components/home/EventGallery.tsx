@@ -215,46 +215,42 @@ export default function EventGallery() {
           <Marquee speed={50} autoFill={true} pauseOnHover>
             {rows[0]?.map((image, index) => (
               <div
-                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden"
                 key={index}
+                style={{
+                  background:
+                    "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                }}
               >
-                <div
-                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                  style={{
-                    background:
-                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                  }}
-                >
+                <div className="relative h-full w-full overflow-hidden rounded-xl">
                   <Image
                     src={image}
                     alt={`Gallery image ${(index % 4) + 1}`}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover rounded-2xl"
+                    className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform hover:scale-[1.2]"
                   />
                 </div>
               </div>
             ))}
           </Marquee>
           <Marquee speed={50} direction="right" autoFill={true} pauseOnHover>
-            {rows[1].map((image, index) => (
+            {rows[1]?.map((image, index) => (
               <div
-                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden"
                 key={index}
+                style={{
+                  background:
+                    "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                }}
               >
-                <div
-                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                  style={{
-                    background:
-                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                  }}
-                >
+                <div className="relative h-full w-full overflow-hidden rounded-xl">
                   <Image
                     src={image}
                     alt={`Gallery image ${(index % 4) + 1}`}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover rounded-2xl"
+                    className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform hover:scale-[1.2]"
                   />
                 </div>
               </div>
@@ -263,22 +259,20 @@ export default function EventGallery() {
           <Marquee direction="left" speed={50} autoFill={true} pauseOnHover>
             {rows[2]?.map((image, index) => (
               <div
-                className="h-64 aspect-[4/3] object-cover rounded-2xl flex-none"
+                className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden"
                 key={index}
+                style={{
+                  background:
+                    "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
+                }}
               >
-                <div
-                  className="h-full w-full p-2 rounded-2xl overflow-hidden"
-                  style={{
-                    background:
-                      "linear-gradient(0.016399796234793484deg, var(--token-30ee69d1-cae6-4a5c-9af2-db5c94a12e77, rgba(255, 255, 255, 0.05)) 0%, var(--token-8b9dc97a-1cd5-4716-ac13-d0875aca92f4, rgba(153, 153, 153, 0.06)) 100%)",
-                  }}
-                >
+                <div className="relative h-full w-full overflow-hidden rounded-xl">
                   <Image
                     src={image}
                     alt={`Gallery image ${(index % 4) + 1}`}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover rounded-2xl"
+                    className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform hover:scale-[1.2]"
                   />
                 </div>
               </div>

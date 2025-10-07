@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -38,6 +39,56 @@ type LinkDef = {
 export default function SiteNavbar() {
   const pathname = usePathname() || "/";
 
+  const [mounted, setMounted] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const ticking = useRef(false);
+  const lockHideUntil = useRef(0);
+
+  const holdNav = (ms = 800) => {
+    setHidden(false);
+    lockHideUntil.current = performance.now() + ms;
+  };
+
+  useEffect(() => {
+    setMounted(true);
+
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+
+      requestAnimationFrame(() => {
+        if (performance.now() < lockHideUntil.current) {
+          ticking.current = false;
+          return;
+        }
+
+        const y = window.scrollY;
+        const delta = y - lastY.current;
+        const THRESHOLD = 6;
+
+        if (Math.abs(delta) > THRESHOLD) {
+          setHidden(delta > 0 && y > 64); // keep visible near top
+          lastY.current = y;
+        }
+        ticking.current = false;
+      });
+    };
+
+    const onHashChange = () => {
+      holdNav(900);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("hashchange", onHashChange, false);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, []);
+
   const links: LinkDef[] = [
     { label: "Home", href: "/", match: (p) => p === "/" },
     { label: "About", href: "/about", match: (p) => p.startsWith("/about") },
@@ -54,7 +105,7 @@ export default function SiteNavbar() {
         {
           label: "SYAI Inspire",
           href: "/programs/inspire",
-          match: (p) => p.startsWith("/programs/oss"),
+          match: (p) => p.startsWith("/programs/inspire"),
         },
         {
           label: "SYAI Labs",
@@ -75,8 +126,8 @@ export default function SiteNavbar() {
     },
     {
       label: "Highlights",
-      href: "/highlights",
-      match: (p) => p.startsWith("/highlights"),
+      href: "#gallery",
+      match: () => false,
     },
     { label: "FAQ", href: "#faq", match: () => false }, // hash example
   ];
@@ -87,7 +138,15 @@ export default function SiteNavbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl bg-gradient-to-b from-black/0 to-black/30">
+    <nav
+      className={cn(
+        "sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl bg-gradient-to-b from-black/0 to-black/30",
+        mounted
+          ? "transition-transform duration-300 will-change-transform"
+          : "",
+        mounted && hidden ? "-translate-y-full" : "translate-y-0"
+      )}
+    >
       <div className="mx-auto flex h-26 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="relative -ml-1 flex items-center gap-3">
@@ -128,6 +187,7 @@ export default function SiteNavbar() {
                       active={isActive}
                       hashLink
                       className="text-[16px] font-normal"
+                      onHashNavigate={() => holdNav(900)}
                     >
                       {item.label}
                     </NavLink>
@@ -257,6 +317,7 @@ export default function SiteNavbar() {
                               active={isActive}
                               hashLink
                               className="block rounded-lg px-3 py-2 text-base"
+                              onHashNavigate={() => holdNav(900)}
                             >
                               {item.label}
                             </NavLink>
@@ -352,12 +413,14 @@ function NavLink({
   active,
   hashLink,
   className,
+  onHashNavigate,
 }: {
   href: string;
   children: React.ReactNode;
   active?: boolean;
   hashLink?: boolean;
   className?: string;
+  onHashNavigate?: () => void;
 }) {
   const base = cn(
     "text-sm font-medium text-white/60 transition-opacity hover:opacity-100",
@@ -367,7 +430,13 @@ function NavLink({
 
   if (hashLink) {
     return (
-      <a href={href} className={base}>
+      <a
+        href={href}
+        className={base}
+        onClick={() => {
+          onHashNavigate?.();
+        }}
+      >
         {children}
       </a>
     );

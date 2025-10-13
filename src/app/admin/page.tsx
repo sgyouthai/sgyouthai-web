@@ -1,11 +1,16 @@
 "use client";
 
+import { useEffect } from "react";
 import { api } from "@/app/providers";
+import { useRouter } from "next/navigation";
 import { CreatePostForm } from "@/components/posts/create-post-form";
 import { PostCard } from "@/components/posts/post-card";
 
 export default function DashboardPage() {
-  const { data: session } = api.auth.getSession.useQuery();
+  const router = useRouter();
+
+  const { data: session, isLoading: sessionLoading } =
+    api.auth.getSession.useQuery();
   const { data: profile } = api.profile.get.useQuery(undefined, {
     enabled: !!session,
   });
@@ -15,15 +20,19 @@ export default function DashboardPage() {
   );
 
   const signOutMutation = api.auth.signOut.useMutation({
-    onSuccess: () => {
-      window.location.href = "/";
-    },
+    onSuccess: () => router.push("/"),
   });
 
-  if (!session) {
+  useEffect(() => {
+    if (!sessionLoading && !session) {
+      router.push("/admin/sign-in");
+    }
+  }, [session, sessionLoading, router]);
+
+  if (sessionLoading || !session) {
     return (
       <div className="container mx-auto p-8">
-        <p>Please sign in to access the dashboard.</p>
+        <p>Loading...</p>
       </div>
     );
   }

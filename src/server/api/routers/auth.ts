@@ -37,7 +37,7 @@ export const authRouter = createTRPCRouter({
           data: {
             full_name: input.fullName,
           },
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/callback?next=/dashboard`,
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/callback?next=/admin`,
         },
       });
 

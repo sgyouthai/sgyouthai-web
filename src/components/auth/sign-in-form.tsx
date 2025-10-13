@@ -38,7 +38,7 @@ export function SignInForm() {
   const signInMutation = api.auth.signIn.useMutation({
     onSuccess: () => {
       toast.success("You have been signed in successfully.");
-      router.push("/dashboard");
+      router.push("/admin");
       router.refresh();
     },
     onError: (error) => {

@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   if (error) {
     // Handle errors (e.g., user didn't confirm)
     return NextResponse.redirect(
-      `${origin}/auth/error?error=${error}&description=${error_description}`
+      `${origin}/admin/error?error=${error}&description=${error_description}`
     );
   }
 
@@ -26,5 +26,5 @@ export async function GET(request: Request) {
   }
 
   // Something went wrong
-  return NextResponse.redirect(`${origin}/auth/error`);
+  return NextResponse.redirect(`${origin}/admin/error`);
 }

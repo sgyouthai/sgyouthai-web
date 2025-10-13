@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
             value: `
               default-src 'self';
               script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.posthog.com https://us-assets.i.posthog.com;
+              connect-src 'self' https://*.posthog.com https://vitals.vercel-insights.com https://va.vercel-scripts.com";
               style-src 'self' 'unsafe-inline';
               img-src 'self' blob: data: https://*.posthog.com;
               font-src 'self';

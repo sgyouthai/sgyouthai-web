@@ -1,28 +1,35 @@
-"use client";
-
+import "server-only";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-// import { api } from "@/app/providers";
+import { api } from "@/server/api/server";
 
-export default function EventGallery() {
-  // const { data: gallery } = api.gallery.getAll.useQuery();
+export default async function EventGallery() {
+  const caller = await api();
+  const galleryData = await caller.gallery.getAll();
+  const gallery = galleryData?.map((e) => e.publicUrl) || [];
+
   // console.log(gallery);
-  const gallery = [
-    "/gallery/syaigathering1.png",
-    "/gallery/deepracedash1.png",
-    "/gallery/cedar2.png",
-    "/gallery/cedar1.png",
-    "/gallery/yac.png",
-    "/gallery/syaigathering2.png",
-    "/gallery/mindfulhacksxsyai.png",
-    "/gallery/deepracedash3.png",
-    "/gallery/yac2.png",
-    "/gallery/syaigathering3.png",
-    "/gallery/mindfulhacksxsyai2.png",
-    "/gallery/deepracedash2.png",
+  // const gallery = [
+  //   "/gallery/syaigathering1.png",
+  //   "/gallery/deepracedash1.png",
+  //   "/gallery/cedar2.png",
+  //   "/gallery/cedar1.png",
+  //   "/gallery/yac.png",
+  //   "/gallery/syaigathering2.png",
+  //   "/gallery/mindfulhacksxsyai.png",
+  //   "/gallery/deepracedash3.png",
+  //   "/gallery/yac2.png",
+  //   "/gallery/syaigathering3.png",
+  //   "/gallery/mindfulhacksxsyai2.png",
+  //   "/gallery/deepracedash2.png",
+  // ];
+  const number = 5;
+  const rows = [
+    gallery.slice(0, number),
+    gallery.slice(number, number * 2),
+    gallery.slice(number * 2),
   ];
-
-  const rows = [gallery.slice(0, 4), gallery.slice(4, 8), gallery.slice(8, 12)];
+  console.log(rows);
 
   return (
     <section id="gallery">

@@ -10,7 +10,7 @@ export default async function ProtectedLayout({
   const session = await caller.auth.getSession();
 
   if (!session) {
-    redirect("/auth/sign-in");
+    redirect("/admin/sign-in");
   }
 
   return <>{children}</>;

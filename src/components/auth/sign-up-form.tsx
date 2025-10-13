@@ -14,7 +14,7 @@ export function SignUpForm() {
   const signUpMutation = api.auth.signUp.useMutation({
     onSuccess: () => {
       setIsSuccess(true);
-      router.push("/auth/confirm");
+      router.push("/admin/confirm");
     },
     onError: (error) => {
       alert(`Error: ${error.message}`);

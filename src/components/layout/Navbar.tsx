@@ -91,7 +91,7 @@ export default function SiteNavbar() {
 
   const links: LinkDef[] = [
     { label: "Home", href: "/", match: (p) => p === "/" },
-    { label: "About", href: "/about", match: (p) => p.startsWith("/about") },
+    { label: "About", href: "#about", match: () => false },
     {
       label: "Programs",
       href: "/programs",
@@ -116,8 +116,8 @@ export default function SiteNavbar() {
     },
     {
       label: "Team",
-      href: "/team",
-      match: (p) => p.startsWith("/team"),
+      href: "#team",
+      match: () => false,
     },
     {
       label: "Partners",

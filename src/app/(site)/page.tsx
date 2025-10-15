@@ -1,5 +1,7 @@
 import EventGallery from "@/components/home/EventGallery";
 import Hero from "@/components/home/Hero";
+import About from "@/components/home/About";
+import Team from "@/components/home/Team";
 import { Separator } from "@radix-ui/react-separator";
 
 export default function HomePage() {
@@ -14,10 +16,15 @@ export default function HomePage() {
               "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
           }}
         />
-        <section>
-          <h1>Our story</h1>
-          <h2>Building Stronger Brands Creating Impressions!</h2>
-        </section>
+        <About />
+        <Separator
+          className="h-[1px] my-17.5 md:my-24 mx-auto w-full"
+          style={{
+            background:
+              "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
+          }}
+        />
+        <Team />
         <Separator
           className="h-[1px] my-17.5 md:my-24 mx-auto w-full"
           style={{
@@ -26,7 +33,6 @@ export default function HomePage() {
           }}
         />
         <EventGallery />
-        {/* <Gallery /> */}
       </main>
     </div>
   );

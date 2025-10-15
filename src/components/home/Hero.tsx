@@ -3,6 +3,7 @@ import { totalMembers } from "@/app/const";
 import { Button } from "@/components/ui/button";
 import LogoMarquee from "@/components/logo-marquee";
 import { Separator } from "@radix-ui/react-separator";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -37,14 +38,20 @@ export default function Hero() {
             data-aos="fade"
             data-aos-delay="150"
           >
-            <Button className="text-[16px] tracking-[-0.5] font-medium  py-6 px-6">
-              Connect With Us
+            <Button
+              className="text-[16px] tracking-[-0.5] font-medium  py-6 px-6"
+              asChild
+            >
+              <Link href={"mailto:hello@sgyouthai.org?subject=Connect With Us"}>
+                Connect With Us
+              </Link>
             </Button>
             <Button
               className="text-[16px] tracking-[-0.5] font-medium py-6 px-6"
               variant={"secondary"}
+              asChild
             >
-              What is SYAI?
+              <Link href={"#about"}>Connect With Us</Link>
             </Button>
           </div>
           <div

@@ -10,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import AOSProvider from "@/components/providers/aos-provider";
 import Image from "next/image";
+import DarkVeil from "@/components/DarkVeil";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -192,6 +193,9 @@ export default function RootLayout({
           <TRPCReactProvider>
             <AOSProvider>
               {children}
+              <div className="fixed insert-y-1/2 h-[100dvh] w-full -z-50">
+                <DarkVeil hueShift={22.5} speed={1.25} />
+              </div>
               <Image
                 loading="eager"
                 src="/background.svg"

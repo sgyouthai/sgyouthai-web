@@ -90,7 +90,7 @@ export default function SiteNavbar() {
   }, []);
 
   const links: LinkDef[] = [
-    { label: "Home", href: "/", match: (p) => p === "/" },
+    { label: "Home", href: "/", match: () => false },
     { label: "About", href: "#about", match: () => false },
     {
       label: "Programs",

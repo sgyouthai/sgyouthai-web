@@ -214,8 +214,8 @@ export default function RootLayout({
 
         <OrganizationJsonLd />
         <WebSiteJsonLd />
-        <SpeedInsights />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

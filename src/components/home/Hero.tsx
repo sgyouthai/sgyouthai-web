@@ -1,16 +1,11 @@
-"use client";
-
 import Image from "next/image";
 import { totalMembers } from "@/app/const";
 import { Button } from "@/components/ui/button";
 import LogoMarquee from "@/components/logo-marquee";
 import { Separator } from "@radix-ui/react-separator";
 import Link from "next/link";
-import { useAtom } from "jotai";
-import { cursorActiveAtom } from "@/state/cursor";
 
 export default function Hero() {
-  const [, setActive] = useAtom(cursorActiveAtom);
   return (
     <section>
       <div className="max-w-7xl mx-auto py-20 pb-10 md:pt-40 md:pb-16 relative">
@@ -46,8 +41,6 @@ export default function Hero() {
             <Button
               className="text-[16px] tracking-[-0.5] font-medium  py-6 px-6"
               asChild
-              onMouseEnter={() => setActive(true)}
-              onMouseLeave={() => setActive(false)}
             >
               <Link href={"mailto:hello@sgyouthai.org?subject=Connect With Us"}>
                 Connect With Us
@@ -57,8 +50,6 @@ export default function Hero() {
               className="text-[16px] tracking-[-0.5] font-medium py-6 px-6"
               variant={"secondary"}
               asChild
-              onMouseEnter={() => setActive(true)}
-              onMouseLeave={() => setActive(false)}
             >
               <Link href={"#about"}>Explore Our Story</Link>
             </Button>

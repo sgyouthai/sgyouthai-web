@@ -187,7 +187,7 @@ function ShareBody({
               variant="secondary"
               size="icon"
               onClick={onScrollLeft}
-              className={cn("h-8 w-8", !canScrollLeft && "opacity-0")}
+              className={cn("h-8 w-8", !canScrollLeft && "invisible")}
               type="button"
             >
               <ChevronLeft size={20} />
@@ -275,7 +275,7 @@ function ShareBody({
               variant="secondary"
               size="icon"
               onClick={onScrollRight}
-              className={cn("h-8 w-8", !canScrollRight && "opacity-0")}
+              className={cn("h-8 w-8", !canScrollRight && "invisible")}
               type="button"
             >
               <ChevronRight size={20} />

@@ -7,45 +7,31 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import ShareButton from "@/components/linkinbio/ShareButton";
-import { Ellipsis, Bell } from "lucide-react";
+import { EllipsisVertical, Ellipsis, Bell } from "lucide-react";
+import Link from "next/link";
 
 export default function LinkInBioPage() {
   const [currentUrl, setCurrentUrl] = useState("");
   const [showHeader, setShowHeader] = useState(true);
-  const { data: titles = [] } = api.linkinbio.getAll.useQuery(
+
+  const { data: links = [] } = api.linkinbio.getAll.useQuery(
     { showHidden: false },
     {
-      // cache tuning
-      staleTime: 60_000, // treat data as fresh for 1 min (no refetch on mount)
-      gcTime: 10 * 60_000, // keep in cache for 10 min after unused (v5; use cacheTime in v4)
+      staleTime: 60_000,
+      gcTime: 10 * 60_000,
       refetchOnWindowFocus: false,
-
-      // “memo”: derive stable/cheap output without redoing work everywhere
-      select: (data) => data.map((l) => l.title),
+      // ✅ no select -> you get the full objects
     }
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 75) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const handleScroll = () => setShowHeader(window.scrollY <= 75);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Set the current URL (browser-only)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setCurrentUrl(window.location.href);
-    }
+    setCurrentUrl(window.location.href);
   }, []);
 
   return (
@@ -63,16 +49,18 @@ export default function LinkInBioPage() {
         >
           <Bell />
         </Button>
+
         <ShareButton
           className="rounded-full"
           size="icon"
           linkInfo={{
             name: "SG Youth AI",
-            href: currentUrl || "", // Use state for the URL
+            href: currentUrl,
           }}
           icon={<Ellipsis />}
-        ></ShareButton>
+        />
       </div>
+
       <div className="rounded-full border border-pink-500 w-fit mx-auto p-2 mt-5">
         <Image
           width={100}
@@ -81,10 +69,28 @@ export default function LinkInBioPage() {
           src="/SYAI_Logo_White.png"
         />
       </div>
-      asd
-      <Button onClick={() => toast.info("TEST")}>TEST</Button>
-      {titles.map((t) => (
-        <div key={t}>{t}</div>
+
+      {links.map((link, idx) => (
+        <Link
+          href={link.url}
+          key={(link.id ?? link.url ?? link.title) + idx}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  bg-neutral-100 text-neutral-900 shadow-sm hover:bg-neutral-100/80 w-full px-8 py-6 text-lg min-h-[4.5rem] relative rounded-xl text-center"
+        >
+          <span>{link.title}</span>
+
+          <ShareButton
+            className="absolute right-2"
+            size="icon"
+            variant="ghost"
+            linkInfo={{
+              name: link.title,
+              href: link.url,
+            }}
+            icon={<EllipsisVertical />}
+          />
+        </Link>
       ))}
     </div>
   );

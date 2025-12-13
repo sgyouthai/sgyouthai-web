@@ -10,17 +10,17 @@ export default function About() {
         Our Story
       </h1>
       <p>Founded in 2023</p>
-      <div className="grid grid-cols-2 md:grid-cols-4 place-items-center text-center gap-12 py-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 place-items-center text-center gap-8 md:gap-12 py-6">
         <div className="flex flex-col justify-center items-center text-center gap-3">
-          <CountUp to={500} suffix="+" className="text-5xl" />
+          <CountUp to={500} suffix="+" className="md:text-5xl text-4xl" />
           <p className="text-current/60">Members</p>
         </div>
         <div className="flex flex-col justify-center items-center text-center gap-3">
-          <CountUp to={2000} suffix="+" className="text-5xl" />
+          <CountUp to={2000} suffix="+" className="md:text-5xl text-4xl" />
           <p className="text-current/60">Students Reached</p>
         </div>
         <div className="flex flex-col justify-center items-center text-center gap-3">
-          <CountUp to={4} className="text-5xl" />
+          <CountUp to={4} className="md:text-5xl text-4xl" />
           <p className="text-current/60">Academic Partners</p>
         </div>
         <div className="flex flex-col justify-center items-center text-center gap-3">
@@ -29,12 +29,11 @@ export default function About() {
             to={64.3}
             decimals={1}
             suffix="K"
-            className="text-5xl"
+            className="md:text-5xl text-4xl"
           />
           <p className="text-current/60">Total Funding Secured</p>
         </div>
       </div>
-      <div className="text-5xl text-white"></div>
     </section>
   );
 }

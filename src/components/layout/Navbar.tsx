@@ -26,8 +26,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useAtom } from "jotai";
-import { cursorActiveAtom } from "@/state/cursor";
 
 type MatchFn = (p: string) => boolean;
 
@@ -39,7 +37,6 @@ type LinkDef = {
 };
 
 export default function SiteNavbar() {
-  const [, setActive] = useAtom(cursorActiveAtom);
   const pathname = usePathname() || "/";
 
   const [mounted, setMounted] = useState(false);
@@ -152,12 +149,7 @@ export default function SiteNavbar() {
     >
       <div className="mx-auto flex h-26 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link
-          href="/"
-          className="relative -ml-1 flex items-center gap-3"
-          onMouseEnter={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
-        >
+        <Link href="/" className="relative -ml-1 flex items-center gap-3">
           <span className="relative inline-block h-16 w-16">
             <Image
               src="/SYAI_Logo_White.png"
@@ -213,8 +205,6 @@ export default function SiteNavbar() {
                           "inline-flex items-center gap-1 text-[16px] font-normal text-white/60 transition-opacity hover:opacity-100 focus:outline-none",
                           isActive && "opacity-100"
                         )}
-                        onMouseEnter={() => setActive(true)}
-                        onMouseLeave={() => setActive(false)}
                       >
                         {item.label}
                         <ChevronDown className="h-4 w-4" />
@@ -229,8 +219,6 @@ export default function SiteNavbar() {
                           <Link
                             href={item.href}
                             className="w-full text-[16px] font-normal"
-                            onMouseEnter={() => setActive(true)}
-                            onMouseLeave={() => setActive(false)}
                           >
                             View all
                           </Link>
@@ -241,8 +229,6 @@ export default function SiteNavbar() {
                             <Link
                               href={c.href}
                               className="w-full text-[16px] font-normal"
-                              onMouseEnter={() => setActive(true)}
-                              onMouseLeave={() => setActive(false)}
                             >
                               {c.label}
                             </Link>
@@ -436,7 +422,6 @@ function NavLink({
   className?: string;
   onHashNavigate?: () => void;
 }) {
-  const [, setActive] = useAtom(cursorActiveAtom);
   const base = cn(
     "text-sm font-medium text-white/60 transition-opacity hover:opacity-100",
     active && "opacity-100",
@@ -448,8 +433,6 @@ function NavLink({
     <Comp
       href={href}
       className={base}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
       {...(hashLink && {
         onClick: () => {
           onHashNavigate?.();

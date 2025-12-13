@@ -197,6 +197,7 @@ function ShareBody({
           {/* IMPORTANT FIX: overflow-x-auto (desktop was overflow-hidden) */}
           <div
             ref={scrollRef}
+            onScroll={updateArrows}
             className={cn(
               "flex items-start gap-4 w-full",
               "overflow-x-auto overscroll-x-contain",

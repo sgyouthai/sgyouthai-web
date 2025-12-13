@@ -10,17 +10,17 @@ export default function Hero() {
   return (
     <section>
       <div className="max-w-7xl mx-auto py-20 pb-10 md:pt-40 md:pb-16 relative">
-        <Image
-          src="/HEY.png"
-          alt=""
-          width={250}
-          height={250}
-          sizes="(min-width: 768px) 250px, 0px"
-          className="absolute bottom-10 right-0 hidden md:block"
-          loading="lazy"
-          data-aos="fade"
-          data-aos-delay="500"
-        />
+        <HeroReveal delay={0.3}>
+          <Image
+            src="/HEY.png"
+            alt=""
+            width={250}
+            height={250}
+            sizes="(min-width: 768px) 250px, 0px"
+            className="absolute bottom-10 right-0 hidden md:block"
+            loading="lazy"
+          />
+        </HeroReveal>
         <div className="flex flex-col gap-[26px]">
           <HeroReveal delay={0}>
             <h1 className="text-[56px] md:text-[86px] max-w-[750px] tracking-[-3.4] md:tracking-[-3.8] leading-[55px] md:leading-[90px]">
@@ -55,11 +55,7 @@ export default function Hero() {
             </div>
           </HeroReveal>
           <HeroReveal delay={0.24}>
-            <div
-              className="max-w-sm flex flex-col gap-5 pt-[50px]"
-              data-aos="fade"
-              data-aos-delay="200"
-            >
+            <div className="max-w-sm flex flex-col gap-5 pt-[50px]">
               <Separator
                 className="h-[1px]"
                 style={{

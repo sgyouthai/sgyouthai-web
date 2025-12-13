@@ -5,12 +5,12 @@ import { api } from "@/app/providers";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShareButton from "@/components/linkinbio/ShareButton";
 import { Ellipsis, Bell } from "lucide-react";
 
 export default function LinkInBioPage() {
-  const currentUrl = "https://sgyouthai.org";
+  const [currentUrl, setCurrentUrl] = useState("");
   const [showHeader, setShowHeader] = useState(true);
   const { data: titles = [] } = api.linkinbio.getAll.useQuery(
     { showHidden: false },
@@ -24,6 +24,29 @@ export default function LinkInBioPage() {
       select: (data) => data.map((l) => l.title),
     }
   );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 75) {
+        setShowHeader(false);
+      } else {
+        setShowHeader(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Set the current URL (browser-only)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col max-w-xl mx-auto space-y-4 p-5">

@@ -442,7 +442,7 @@ function NavLink({
     active && "opacity-100",
     className
   );
-  const Comp: any = hashLink ? "a" : Link;
+  const Comp: "a" | typeof Link = hashLink ? "a" : Link;
 
   return (
     <Comp

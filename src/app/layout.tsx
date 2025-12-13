@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import AOSProvider from "@/components/providers/aos-provider";
 import Image from "next/image";
 import DarkVeil from "@/components/DarkVeil";
+import TrailingCursor from "@/components/TrailingCursor";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -207,7 +208,8 @@ export default function RootLayout({
                 width={256}
                 height={214}
               />
-              <Toaster richColors />
+              <Toaster richColors position="top-center" />
+              <TrailingCursor />
             </AOSProvider>
           </TRPCReactProvider>
         </PostHogProvider>

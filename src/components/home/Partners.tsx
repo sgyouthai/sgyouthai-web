@@ -16,8 +16,8 @@ export default function Partners() {
           data-aos-delay="100"
           className="text-current/60 max-w-lg leading-[26px]"
         >
-          Working together with Singapore's leading organizations to advance AI
-          education and innovation.
+          Working together with Singapore&apos;s leading organizations to
+          advance AI education and innovation.
         </p>
       </div>
     </section>

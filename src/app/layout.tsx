@@ -8,7 +8,6 @@ import Script from "next/script";
 import { totalMembers } from "./const";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import AOSProvider from "@/components/providers/aos-provider";
 import Image from "next/image";
 import DarkVeil from "@/components/DarkVeil";
 import TrailingCursor from "@/components/TrailingCursor";
@@ -192,25 +191,23 @@ export default function RootLayout({
 
         <PostHogProvider>
           <TRPCReactProvider>
-            <AOSProvider>
-              {children}
-              <div className="fixed insert-y-1/2 h-[100dvh] w-full -z-50">
-                <DarkVeil hueShift={22.5} speed={1.25} />
-              </div>
-              <Image
-                loading="eager"
-                src="/background.svg"
-                alt=""
-                className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse"
-                style={{
-                  animationDuration: "10s",
-                }}
-                width={256}
-                height={214}
-              />
-              <Toaster richColors position="top-center" />
-              <TrailingCursor />
-            </AOSProvider>
+            {children}
+            <div className="fixed insert-y-1/2 h-[100dvh] w-full -z-50">
+              <DarkVeil hueShift={22.5} speed={1.25} />
+            </div>
+            <Image
+              loading="eager"
+              src="/background.svg"
+              alt=""
+              className="blur-lg fixed -z-50 -translate-x-1/2 inset-x-1/2 -inset-y-3/4 w-[2353px] h-[1969px] object-cover max-w-[unset] motion-safe:animate-pulse"
+              style={{
+                animationDuration: "10s",
+              }}
+              width={256}
+              height={214}
+            />
+            <Toaster richColors position="top-center" />
+            <TrailingCursor />
           </TRPCReactProvider>
         </PostHogProvider>
 

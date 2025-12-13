@@ -4,6 +4,7 @@ import Team from "@/components/home/Team";
 import Partners from "@/components/home/Partners";
 import EventGallery from "@/components/home/EventGallery";
 import GradientSeparator from "@/components/home/GradientSeparator";
+import { Suspense } from "react";
 
 export default function HomePage() {
   return (
@@ -20,7 +21,9 @@ export default function HomePage() {
         <Partners />
         <GradientSeparator />
 
-        <EventGallery />
+        <Suspense fallback={<div className="h-[600px]" />}>
+          <EventGallery />
+        </Suspense>
       </main>
     </div>
   );

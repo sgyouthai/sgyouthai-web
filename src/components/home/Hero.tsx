@@ -10,11 +10,13 @@ export default function Hero() {
     <section>
       <div className="max-w-7xl mx-auto py-20 pb-10 md:pt-40 md:pb-16 relative">
         <Image
-          className="absolute w-[250px] bottom-10 right-0 md:block hidden"
           src="/HEY.png"
           alt=""
-          width={500}
-          height={500}
+          width={250}
+          height={250}
+          sizes="(min-width: 768px) 250px, 0px"
+          className="absolute bottom-10 right-0 hidden md:block"
+          loading="lazy"
           data-aos="fade"
           data-aos-delay="500"
         />

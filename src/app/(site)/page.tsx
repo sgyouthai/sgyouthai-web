@@ -1,37 +1,25 @@
-import EventGallery from "@/components/home/EventGallery";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Team from "@/components/home/Team";
-import { Separator } from "@radix-ui/react-separator";
+import Partners from "@/components/home/Partners";
+import EventGallery from "@/components/home/EventGallery";
+import GradientSeparator from "@/components/home/GradientSeparator";
 
 export default function HomePage() {
   return (
     <div className="fullHeight flex flex-col overflow-x-clip overflow-y-visible max-w-screen mb-[120px]">
       <main className="relative flex flex-1 flex-col max-w-7xl mx-auto w-full px-7 md:px-10 ">
         <Hero />
-        <Separator
-          className="h-[1px] my-17.5 md:my-24 mx-auto w-full"
-          style={{
-            background:
-              "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
-          }}
-        />
+        <GradientSeparator />
         <About />
-        <Separator
-          className="h-[1px] my-17.5 md:my-24 mx-auto w-full"
-          style={{
-            background:
-              "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
-          }}
-        />
+        <GradientSeparator />
+
         <Team />
-        <Separator
-          className="h-[1px] my-17.5 md:my-24 mx-auto w-full"
-          style={{
-            background:
-              "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
-          }}
-        />
+        <GradientSeparator />
+
+        <Partners />
+        <GradientSeparator />
+
         <EventGallery />
       </main>
     </div>

@@ -71,7 +71,7 @@ export default function About() {
           className="w-96"
         />
         <div
-          className="flex text-base md:text-xl gap-4 md:gap-12 flex-col md:flex-row"
+          className="flex text-base md:text-lg gap-4 md:gap-12 flex-col md:flex-row"
           data-aos="fade"
           data-aos-delay="200"
         >

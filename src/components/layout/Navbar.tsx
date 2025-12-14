@@ -44,6 +44,8 @@ export default function SiteNavbar() {
   const lastY = useRef(0);
   const ticking = useRef(false);
   const lockHideUntil = useRef(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   const holdNav = (ms = 800) => {
     setHidden(false);
@@ -121,9 +123,14 @@ export default function SiteNavbar() {
     },
     {
       label: "Partners",
-      href: "/partners",
-      match: (p) => p.startsWith("/partners"),
+      href: "#partners",
+      match: () => false,
     },
+    // {
+    //   label: "Partners",
+    //   href: "/partners",
+    //   match: (p) => p.startsWith("/partners"),
+    // },
     {
       label: "Highlights",
       href: "#gallery",
@@ -268,9 +275,16 @@ export default function SiteNavbar() {
 
         {/* Mobile hamburger */}
         <div className="ml-auto lg:hidden">
-          <Sheet>
+          <Sheet
+            open={mobileOpen}
+            onOpenChange={(v) => {
+              setMobileOpen(v);
+              if (v) holdNav(1200);
+            }}
+          >
             <SheetTrigger asChild>
               <Button
+                ref={mobileTriggerRef}
                 variant="ghost"
                 size="icon"
                 className="rounded-lg text-white/90 hover:text-white"
@@ -282,6 +296,13 @@ export default function SiteNavbar() {
             <SheetContent
               side="left"
               className="border-b border-white/10 bg-gradient-to-b from-zinc-900/50 to-black/60 backdrop-blur-2xl"
+              onOpenAutoFocus={(e) => {
+                e.preventDefault();
+              }}
+              onCloseAutoFocus={(e) => {
+                e.preventDefault();
+                mobileTriggerRef.current?.focus({ preventScroll: true });
+              }}
             >
               <SheetTitle className="sr-only" />
               <div className="mx-auto w-full max-w-7xl px-4 pb-4 pt-6">

@@ -46,16 +46,18 @@ export default function About() {
 
   return (
     <section id="about" className="gap-[30px] flex flex-col">
-      <Reveal>
-        <h1 className="text-center text-[35px] md:text-[54px] tracking-[-2] md:tracking-[-1.9] leading-[32px] md:leading-[50px]">
-          Our Story
-        </h1>
-      </Reveal>
-      <Reveal delay={0.08}>
-        <h3 className="text-3xl font-medium text-center">
-          For Youths, By Youths!
-        </h3>
-      </Reveal>
+      <div className="space-y-[3px] md:space-y-[10px]">
+        <Reveal>
+          <h1 className="text-center text-[35px] md:text-[54px] tracking-[-2] md:tracking-[-1.9] leading-[32px] md:leading-[50px]">
+            Our Story
+          </h1>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h3 className="text-3xl font-medium text-center text-current/60">
+            For Youths, By Youths!
+          </h3>
+        </Reveal>
+      </div>
       <Reveal delay={0.16}>
         <div className="flex gap-4 md:gap-12 items-center justify-center flex-col md:flex-row">
           <Image
@@ -66,7 +68,7 @@ export default function About() {
             className="w-96"
           />
           <Reveal delay={0.16}>
-            <div className="flex text-base md:text-lg gap-4 md:gap-12 flex-col md:flex-row">
+            <div className="flex text-base md:text-lg gap-4 md:gap-8 lg:gap-12  flex-col md:flex-row">
               <p>
                 Singapore Youth AI (SYAI) began in 2023, started by students
                 from Polytechnics and Junior Colleges. We wanted one place where

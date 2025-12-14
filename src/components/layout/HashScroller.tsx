@@ -3,17 +3,25 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+function cssEscape(value: string) {
+  // CSS.escape exists in modern browsers; fallback to simple escaping if not
+  if (typeof CSS !== "undefined" && "escape" in CSS) {
+    // CSS.escape is part of the lib.dom types in TS, so this is typed
+    return CSS.escape(value);
+  }
+  // minimal fallback (good enough for most ids)
+  return value.replace(/"/g, '\\"');
+}
+
 function findTarget(id: string) {
   // exact match
-  let el = document.getElementById(id) as HTMLElement | null;
-  if (el) return el;
+  const direct = document.getElementById(id);
+  if (direct) return direct;
 
-  // case-insensitive fallback (helps if your id casing differs)
+  // case-insensitive fallback
   try {
-    // CSS.escape may not exist in older browsers, but should in modern
-    const escaped = (CSS as any)?.escape ? (CSS as any).escape(id) : id;
-    el = document.querySelector(`[id="${escaped}" i]`) as HTMLElement | null;
-    return el;
+    const escaped = cssEscape(id);
+    return document.querySelector(`[id="${escaped}" i]`) as HTMLElement | null;
   } catch {
     return null;
   }
@@ -60,7 +68,7 @@ export default function HashScroller() {
         return;
       }
 
-      if (performance.now() - start < 1200) {
+      if (performance.now() - start < 2000) {
         raf = requestAnimationFrame(pollHashThenScroll);
       }
     };

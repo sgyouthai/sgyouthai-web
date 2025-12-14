@@ -57,9 +57,11 @@ export default function SiteNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileTriggerRef = useRef<HTMLButtonElement | null>(null);
 
-  const holdNav = (ms = 800) => {
+  const holdNav = (ms = 1200) => {
     setHidden(false);
-    lockHideUntil.current = performance.now() + ms;
+    const until = performance.now() + ms;
+    lockHideUntil.current = Math.max(lockHideUntil.current, until);
+    lastY.current = window.scrollY;
   };
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export default function SiteNavbar() {
         }
 
         const delta = y - lastY.current;
-        const THRESHOLD = 10;
+        const THRESHOLD = 20;
 
         if (Math.abs(delta) > THRESHOLD) {
           setHidden(delta > 0 && y > 64);
@@ -94,7 +96,7 @@ export default function SiteNavbar() {
     };
 
     // If hash changes (including clicking /#something), keep nav visible briefly
-    const onHashChange = () => holdNav(1200);
+    const onHashChange = () => holdNav(2000);
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("hashchange", onHashChange, false);
@@ -219,7 +221,7 @@ export default function SiteNavbar() {
                           "inline-flex items-center gap-1 text-[16px] font-normal text-white/60 transition-opacity hover:opacity-100 focus:outline-none",
                           isActive && "opacity-100"
                         )}
-                        onClick={() => holdNav(900)} // keep nav visible when opening dropdown
+                        onClick={() => holdNav(1200)} // keep nav visible when opening dropdown
                       >
                         {item.label}
                         <ChevronDown className="h-4 w-4" />

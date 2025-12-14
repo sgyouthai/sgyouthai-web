@@ -2,8 +2,8 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
 export const teamRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx, input }) => {
-    let query = ctx.supabase
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const query = ctx.supabase
       .from("team")
       .select("*")
       .order("group", { ascending: true })

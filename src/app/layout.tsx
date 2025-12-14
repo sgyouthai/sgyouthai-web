@@ -10,7 +10,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Image from "next/image";
 import DarkVeil from "@/components/DarkVeil";
-import TrailingCursor from "@/components/TrailingCursor";
+import ClientEffects from "@/app/client-effects";
+import HashScroller from "@/components/layout/HashScroller";
 
 const dm_sans = DM_Sans({ subsets: ["latin"] });
 
@@ -207,7 +208,8 @@ export default function RootLayout({
               height={214}
             />
             <Toaster richColors position="top-center" />
-            <TrailingCursor />
+            <ClientEffects />
+            <HashScroller />
           </TRPCReactProvider>
         </PostHogProvider>
 

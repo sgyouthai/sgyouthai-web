@@ -1,44 +1,61 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CURSOR_SIZE = 16;
-
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, select, textarea, label, summary, [data-cursor="pointer"], .cursor-pointer';
 
-export default function MagicCursor() {
+export default function TrailingCursor() {
+  const [enabled, setEnabled] = useState(false);
   const [active, setActive] = useState(false);
 
+  // only create motion values if enabled (after mount)
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   const smoothX = useSpring(mouseX, { stiffness: 200, damping: 25, mass: 0.4 });
   const smoothY = useSpring(mouseY, { stiffness: 200, damping: 25, mass: 0.4 });
 
+  const activeRef = useRef(false);
+
   useEffect(() => {
-    const finePointer = window.matchMedia?.("(pointer: fine)")?.matches ?? true;
+    const finePointer =
+      window.matchMedia?.("(pointer: fine)")?.matches ?? false;
     if (!finePointer) return;
 
+    setEnabled(true);
+
     let raf = 0;
+    let lastX = -100;
+    let lastY = -100;
 
     const onMove = (e: PointerEvent) => {
-      cancelAnimationFrame(raf);
+      lastX = e.clientX - CURSOR_SIZE / 2;
+      lastY = e.clientY - CURSOR_SIZE / 2;
+      if (raf) return; // don’t cancel+reschedule every event
       raf = requestAnimationFrame(() => {
-        mouseX.set(e.clientX - CURSOR_SIZE / 2);
-        mouseY.set(e.clientY - CURSOR_SIZE / 2);
+        mouseX.set(lastX);
+        mouseY.set(lastY);
+        raf = 0;
       });
+    };
+
+    const setActiveIfChanged = (next: boolean) => {
+      if (activeRef.current === next) return;
+      activeRef.current = next;
+      setActive(next);
     };
 
     const onOver = (e: PointerEvent) => {
       const target = e.target as Element | null;
-      setActive(Boolean(target?.closest?.(INTERACTIVE_SELECTOR)));
+      setActiveIfChanged(Boolean(target?.closest?.(INTERACTIVE_SELECTOR)));
     };
 
     const onOut = (e: PointerEvent) => {
       const next = e.relatedTarget as Element | null;
       if (next?.closest?.(INTERACTIVE_SELECTOR)) return;
-      setActive(false);
+      setActiveIfChanged(false);
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -46,12 +63,15 @@ export default function MagicCursor() {
     document.addEventListener("pointerout", onOut, true);
 
     return () => {
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerover", onOver, true);
       document.removeEventListener("pointerout", onOut, true);
     };
   }, [mouseX, mouseY]);
+
+  // Don’t render at all unless we detected a fine pointer
+  if (!enabled) return null;
 
   return (
     <motion.div

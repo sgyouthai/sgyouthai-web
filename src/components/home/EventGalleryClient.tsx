@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import { Reveal } from "@/components/motion/Reveal";
+import BlueHighlighter from "@/components/BlueHighlight";
 
 export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
   const [mounted, setMounted] = useState(false);
@@ -20,13 +21,8 @@ export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
   );
 
   const Card = ({ src, i }: { src: string; i: number }) => (
-    <div
-      className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(0.0164deg, rgba(255,255,255,0.05) 0%, rgba(153,153,153,0.06) 100%)",
-      }}
-    >
+    <div className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden relative border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]">
+      <BlueHighlighter />
       <div className="relative h-full w-full overflow-hidden rounded-xl">
         <Image
           src={src}
@@ -62,39 +58,51 @@ export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
             {/* SSR-safe fallback (no marquee) */}
             {!mounted ? (
               <>
-                <div className="flex overflow-hidden">
-                  {rows[0].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </div>
-                <div className="flex overflow-hidden">
-                  {rows[1].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </div>
-                <div className="flex overflow-hidden">
-                  {rows[2].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </div>
+                <Reveal delay={0.08 * 3}>
+                  <div className="flex overflow-hidden">
+                    {rows[0].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </div>
+                </Reveal>
+                <Reveal delay={0.08 * 4}>
+                  <div className="flex overflow-hidden">
+                    {rows[1].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </div>
+                </Reveal>
+                <Reveal delay={0.08 * 5}>
+                  <div className="flex overflow-hidden">
+                    {rows[2].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </div>
+                </Reveal>
               </>
             ) : (
               <>
-                <Marquee speed={50} autoFill pauseOnHover>
-                  {rows[0].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </Marquee>
-                <Marquee speed={50} direction="right" autoFill pauseOnHover>
-                  {rows[1].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </Marquee>
-                <Marquee speed={50} direction="left" autoFill pauseOnHover>
-                  {rows[2].map((src, i) => (
-                    <Card key={src + i} src={src} i={i} />
-                  ))}
-                </Marquee>
+                <Reveal delay={0.08 * 3}>
+                  <Marquee speed={50} autoFill pauseOnHover>
+                    {rows[0].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </Marquee>
+                </Reveal>
+                <Reveal delay={0.08 * 4}>
+                  <Marquee speed={50} direction="right" autoFill pauseOnHover>
+                    {rows[1].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </Marquee>
+                </Reveal>
+                <Reveal delay={0.08 * 5}>
+                  <Marquee speed={50} direction="left" autoFill pauseOnHover>
+                    {rows[2].map((src, i) => (
+                      <Card key={src + i} src={src} i={i} />
+                    ))}
+                  </Marquee>
+                </Reveal>
               </>
             )}
           </div>

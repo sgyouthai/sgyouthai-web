@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import BlueHighlighter from "@/components/BlueHighlight";
 
 type TeamCardProps = {
   name: string;
@@ -19,7 +20,8 @@ export default function TeamCard({
   imageAlt = "Portrait",
 }: TeamCardProps) {
   return (
-    <div className="w-full self-stretch flex">
+    <div className="w-full self-stretch flex relative">
+      <BlueHighlighter />
       <div className="w-full p-[10px] rounded-[15px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]">
         <div className="relative w-full rounded-t-[15px] aspect-square overflow-hidden">
           <Image

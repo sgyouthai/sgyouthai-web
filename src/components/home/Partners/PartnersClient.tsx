@@ -144,7 +144,6 @@ function Grid({ sorted }: { sorted: PartnerItem[] }) {
               </div>
             );
 
-            console.log(p);
             return p.href ? (
               <Link
                 key={p.id}

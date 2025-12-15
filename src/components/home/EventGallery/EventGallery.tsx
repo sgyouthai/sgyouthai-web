@@ -1,18 +1,7 @@
 import { cache } from "react";
 import "server-only";
 import { api } from "@/server/api/server";
-import EventGalleryClient from "@/components/home/EventGalleryClient";
-// import { unstable_cache } from "next/cache";
-
-// const getGallery = unstable_cache(
-//   async () => {
-//     const caller = await api();
-//     const galleryData = await caller.gallery.getAll();
-//     return galleryData?.map((e) => e.publicUrl) ?? [];
-//   },
-//   ["home-gallery"],
-//   { revalidate: 3600 }
-// );
+import EventGalleryClient from "@/components/home/EventGallery/EventGalleryClient";
 
 const getGallery = cache(async () => {
   const caller = await api();

@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { api } from "@/server/api/server";
-import TeamClient from "@/components/home/TeamClient";
+import TeamClient from "@/components/home/Team/TeamClient";
 
 const getTeam = unstable_cache(
   async () => {

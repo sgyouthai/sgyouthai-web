@@ -1,4 +1,4 @@
-import { type TeamRow } from "@/components/home/TeamClient";
+import { type TeamRow } from "@/components/home/Team/TeamClient";
 
 export const FALLBACK_TEAM: TeamRow[] = [
   {

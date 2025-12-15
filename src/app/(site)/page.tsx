@@ -1,9 +1,9 @@
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
-import Team from "@/components/home/Team";
-import Partners from "@/components/home/Partners";
-import EventGallery from "@/components/home/EventGallery";
-import GradientSeparator from "@/components/home/GradientSeparator";
+import Team from "@/components/home/Team/Team";
+import Partners from "@/components/home/Partners/Partners";
+import EventGallery from "@/components/home/EventGallery/EventGallery";
+import GradientSeparator from "@/components/GradientSeparator";
 import { Suspense } from "react";
 
 export default function HomePage() {

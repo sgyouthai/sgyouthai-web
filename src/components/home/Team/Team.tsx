@@ -9,7 +9,10 @@ const getTeam = unstable_cache(
     return (await caller.team.getAll()) ?? [];
   },
   ["home-team"],
-  { revalidate: 60 * 30 } // 30 min
+  {
+    revalidate: 60 * 30,
+    tags: ["home-team"],
+  }
 );
 
 export default async function Team() {

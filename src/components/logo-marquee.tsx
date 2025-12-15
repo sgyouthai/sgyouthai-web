@@ -2,14 +2,16 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const logos = ["/window.svg", "/vercel.svg", "/file.svg"]; // 40–80px tall PNG/SVGs
+const CONSTANT_LOGOS = ["/window.svg", "/vercel.svg", "/file.svg"]; // 40–80px tall PNG/SVGs
 
 interface LogoMarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Animation duration in seconds */
+  logos?: string[];
   speed?: number;
 }
 
 export default function LogoMarquee({
+  logos = CONSTANT_LOGOS,
   speed = 25,
   className,
   ...rest
@@ -17,7 +19,7 @@ export default function LogoMarquee({
   const row = [...logos, ...logos];
   return (
     <div
-      className={cn("relative w-full overflow-hidden py-6", className)}
+      className={cn("relative w-full overflow-hidden py-2", className)}
       {...rest}
     >
       <div className="mask-fade-x">
@@ -51,7 +53,7 @@ function Row({
 }) {
   return (
     <div
-      className="flex items-center gap-12 pr-12" /* spacing is inside each clone */
+      className="flex items-center gap-8 pr-8" /* spacing is inside each clone */
       aria-hidden={ariaHidden}
     >
       {logos.map((src, i) => (
@@ -62,9 +64,9 @@ function Row({
           <Image
             src={src}
             alt="logo"
-            width={120}
+            width={40}
             height={40}
-            className="h-8 w-auto object-contain"
+            className="h-16 w-auto object-contain"
             priority={i < 3} /* helps avoid layout shift */
           />
         </div>

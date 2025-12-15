@@ -7,6 +7,14 @@ import { HeroReveal } from "@/components/motion/Reveal";
 import Link from "next/link";
 
 export default function Hero() {
+  const stickers = [
+    "/stickers/404.png",
+    "/stickers/CAMERA.png",
+    "/stickers/COFFEE.png",
+    "/stickers/COMPUTER.png",
+    "/stickers/ssssh.png",
+  ];
+
   return (
     <section>
       <div className="max-w-7xl mx-auto py-20 pb-10 md:pt-40 md:pb-16 relative">
@@ -63,7 +71,7 @@ export default function Hero() {
                     "linear-gradient(270deg, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 0%, var(--token-4ef09f89-9c35-4972-a9c1-8efc95820553, rgba(255, 255, 255, .2)) 50%, var(--token-4ba9d2af-bbc9-422d-912b-c0d857289d96, rgba(255, 255, 255, 0)) 100%)",
                 }}
               />
-              <LogoMarquee speed={25} />
+              <LogoMarquee speed={25} logos={stickers} />
             </div>
           </HeroReveal>
         </div>

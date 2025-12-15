@@ -6,6 +6,7 @@ export const partnersRouter = createTRPCRouter({
     const query = ctx.supabase
       .from("partners")
       .select("*")
+      .order("id", { ascending: true })
       .order("display_order", { ascending: true });
 
     const { data, error } = await query;

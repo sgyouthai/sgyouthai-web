@@ -7,19 +7,19 @@ export default function Footer() {
     {
       title: "Company",
       links: [
-        { name: "About", href: "#about" },
-        { name: "Team", href: "#team" },
-        { name: "Partners", href: "#partners" },
-        { name: "Contact", href: "#contact" },
+        { name: "About", href: "/#about" },
+        { name: "Team", href: "/#team" },
+        { name: "Partners", href: "/#partners" },
+        { name: "Contact", href: "/#contact" },
       ],
     },
     {
-      title: "Resources",
+      title: "Programs",
       links: [
-        { name: "AIMM", href: "#aimm" },
+        { name: "AI Monthly Meetups", href: "/programs#AIMM" },
         { name: "AITimes", href: "https://t.me/sgyouthai", isExternal: true },
-        { name: "Bootcamps", href: "#bootcamps" },
-        { name: "Features", href: "#features" },
+        { name: "SYAI Inspire", href: "/programs#Inspire" },
+        { name: "SYAI Labs", href: "/programs#Labs" },
       ],
     },
     {

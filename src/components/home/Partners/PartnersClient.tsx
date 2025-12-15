@@ -109,10 +109,6 @@ export default function PartnersClient({
       ) : (
         <>
           <Grid sorted={sorted} />
-          {/* optional: show a tiny “updating…” indicator if isFetching */}
-          {isFetching && (
-            <div className="mt-3 text-sm text-white/50">Updating…</div>
-          )}
         </>
       )}
     </section>
@@ -130,7 +126,7 @@ function Grid({ sorted }: { sorted: PartnerItem[] }) {
             const card = (
               <div
                 className={[
-                  "relative w-full p-5 rounded-[15px] flex flex-col border border-white/10",
+                  "group relative w-full p-5 rounded-[15px] flex flex-col border border-white/10",
                   "bg-gradient-to-b from-blue-500/20 to-blue-500/10 backdrop-blur-[5px]",
                   p.href ? "cursor-pointer hover:border-white/20" : "",
                 ].join(" ")}
@@ -142,11 +138,12 @@ function Grid({ sorted }: { sorted: PartnerItem[] }) {
                     alt={p.name ?? "Partner"}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                    className="object-contain object-center scale-[0.95] hover:scale-[1.05] transition-all"
+                    className="object-contain object-center transition-transform duration-200 ease-out group-hover:scale-[1.08]"
                   />
                 </div>
               </div>
             );
+
             console.log(p);
             return p.href ? (
               <Link

@@ -145,10 +145,6 @@ export default function TeamClient({
             solutions.
           </p>
         </Reveal>
-
-        {isFetching && (
-          <div className="text-current/40 text-sm text-center">Updating…</div>
-        )}
       </div>
 
       <div className="w-full max-w-5xl mt-10">

@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import BlueHighlighter from "@/components/BlueHighlight";
 import { api } from "@/app/providers";
@@ -10,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export type PartnersRow = {
   id: number;
   name: string;
+  href: string | null;
   image_url: string;
   display_order: number | null;
 };
@@ -17,6 +19,7 @@ export type PartnersRow = {
 type PartnerItem = {
   id: number;
   name: string;
+  href: string | null;
   image: string;
   displayOrder: number;
 };
@@ -43,22 +46,25 @@ export default function PartnersClient({
 }: {
   initialRows: PartnersRow[];
 }) {
-  const {
-    data = initialRows,
-    isFetching,
-    isLoading,
-    error,
-  } = api.partners.getAll.useQuery(undefined, {
-    initialData: initialRows,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 10,
-  });
+  const { data, isLoading, isFetching, error } = api.partners.getAll.useQuery(
+    undefined,
+    {
+      initialData: initialRows,
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 10,
+    }
+  );
+
+  const rows = data ?? initialRows;
+
+  const showSkeleton = isLoading && rows.length === 0;
 
   const items = useMemo<PartnerItem[]>(() => {
     const rows = data ?? [];
     return rows.map((r) => ({
       id: r.id,
       name: r.name,
+      href: r.href ?? null,
       image: r.image_url,
       displayOrder: r.display_order ?? 9999,
     }));
@@ -97,34 +103,68 @@ export default function PartnersClient({
           </p>
         </Reveal>
       </div>
-      {(isLoading || isFetching) && initialRows.length === 0 ? (
+
+      {showSkeleton ? (
         <PartnersSkeleton />
       ) : (
-        <div className="w-full max-w-5xl mt-10">
-          <Reveal delay={0.16}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-              {sorted.map((p) => (
-                <div
-                  key={p.id}
-                  className="relative w-full p-5 rounded-[15px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/20 to-blue-500/10 backdrop-blur-[5px]"
-                >
-                  <BlueHighlighter />
-                  <div className="w-full relative h-24">
-                    <Image
-                      src={p.image}
-                      alt={p.name}
-                      fill
-                      priority={false}
-                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                      className="object-contain object-center"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+        <>
+          <Grid sorted={sorted} />
+          {/* optional: show a tiny “updating…” indicator if isFetching */}
+          {isFetching && (
+            <div className="mt-3 text-sm text-white/50">Updating…</div>
+          )}
+        </>
       )}
     </section>
+  );
+}
+
+function Grid({ sorted }: { sorted: PartnerItem[] }) {
+  return (
+    <div className="w-full max-w-5xl mt-10">
+      <Reveal delay={0.16}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {sorted.map((p) => {
+            if (!p.image) return null;
+
+            const card = (
+              <div
+                className={[
+                  "relative w-full p-5 rounded-[15px] flex flex-col border border-white/10",
+                  "bg-gradient-to-b from-blue-500/20 to-blue-500/10 backdrop-blur-[5px]",
+                  p.href ? "cursor-pointer hover:border-white/20" : "",
+                ].join(" ")}
+              >
+                <BlueHighlighter />
+                <div className="w-full relative h-24">
+                  <Image
+                    src={p.image}
+                    alt={p.name ?? "Partner"}
+                    fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    className="object-contain object-center scale-[0.95] hover:scale-[1.05] transition-all"
+                  />
+                </div>
+              </div>
+            );
+            console.log(p);
+            return p.href ? (
+              <Link
+                key={p.id}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${p.name}`}
+                className="block"
+              >
+                {card}
+              </Link>
+            ) : (
+              <div key={p.id}>{card}</div>
+            );
+          })}
+        </div>
+      </Reveal>
+    </div>
   );
 }

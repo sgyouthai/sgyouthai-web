@@ -1,6 +1,11 @@
+"use client";
+
+import { useMemo } from "react";
+import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import BlueHighlighter from "@/components/BlueHighlight";
-import Image from "next/image";
+import { api } from "@/app/providers";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type PartnersRow = {
   id: number;
@@ -9,11 +14,70 @@ export type PartnersRow = {
   display_order: number | null;
 };
 
-export default function TeamClient({
+type PartnerItem = {
+  id: number;
+  name: string;
+  image: string;
+  displayOrder: number;
+};
+
+function PartnersSkeleton() {
+  return (
+    <div className="w-full max-w-5xl mt-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div
+            key={i}
+            className="relative w-full p-5 rounded-[15px] flex flex-col border border-white/10 bg-white/5"
+          >
+            <Skeleton className="h-24 w-full rounded-[12px]" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function PartnersClient({
   initialRows,
 }: {
   initialRows: PartnersRow[];
 }) {
+  const {
+    data = initialRows,
+    isFetching,
+    isLoading,
+    error,
+  } = api.partners.getAll.useQuery(undefined, {
+    initialData: initialRows,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10,
+  });
+
+  const items = useMemo<PartnerItem[]>(() => {
+    const rows = data ?? [];
+    return rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      image: r.image_url,
+      displayOrder: r.display_order ?? 9999,
+    }));
+  }, [data]);
+
+  const sorted = useMemo(() => {
+    return [...items].sort(
+      (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name)
+    );
+  }, [items]);
+
+  if (error) {
+    return (
+      <div className="text-red-500">
+        Failed to load partners: {error.message}
+      </div>
+    );
+  }
+
   return (
     <section
       id="partners"
@@ -25,33 +89,42 @@ export default function TeamClient({
             Our Partners
           </h1>
         </Reveal>
+
         <Reveal delay={0.08}>
           <p className="text-current/60 max-w-lg leading-[26px]">
-            Working together with Singapore&apos;s leading organizations to
+            Working together with Singapore&apos;s leading organisations to
             advance AI education and innovation.
           </p>
         </Reveal>
       </div>
-      <div className="w-full max-w-5xl mt-10 grid grid-cols-4 gap-5">
-        {initialRows.map((e) => (
-          <div
-            key={e.id}
-            className="relative w-full p-5 rounded-[15px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]"
-          >
-            <BlueHighlighter />
-            <div className="w-full relative h-24">
-              <Image
-                src={e.image_url}
-                alt={e.name}
-                fill
-                priority={false}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain object-center"
-              />
+      {(isLoading || isFetching) && initialRows.length === 0 ? (
+        <PartnersSkeleton />
+      ) : (
+        <div className="w-full max-w-5xl mt-10">
+          <Reveal delay={0.16}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {sorted.map((p) => (
+                <div
+                  key={p.id}
+                  className="relative w-full p-5 rounded-[15px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/20 to-blue-500/10 backdrop-blur-[5px]"
+                >
+                  <BlueHighlighter />
+                  <div className="w-full relative h-24">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      priority={false}
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                      className="object-contain object-center"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
+          </Reveal>
+        </div>
+      )}
     </section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import Image from "next/image";
+import TeamCard from "@/components/home/TeamCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { api } from "@/app/providers"; // adjust if your api export path differs
 
@@ -11,7 +11,7 @@ type TeamRow = {
   role: string;
   handle: string | null;
   image_url: string | null;
-  profile_url: string | null;
+  linkedin_url: string | null;
   border_color: string | null;
   gradient: string | null;
   group: string | null;
@@ -31,12 +31,12 @@ export default function Team() {
     return rows.map((r) => ({
       id: r.id,
       image: r.image_url ?? "/placeholder-avatar.png",
-      title: r.name,
-      subtitle: r.role,
+      name: r.name,
+      role: r.role,
       handle: r.handle ?? "",
       borderColor: r.border_color ?? "#3B82F6",
       gradient: r.gradient ?? "linear-gradient(145deg, #3B82F6, #000)",
-      url: r.profile_url ?? undefined,
+      url: r.linkedin_url ?? "",
       group: r.group ?? "Team",
       displayOrder: r.display_order ?? 9999,
     }));
@@ -49,6 +49,36 @@ export default function Team() {
       return acc;
     }, {});
   }, [items]);
+  const GROUP_ORDER = [
+    "Board Members",
+    "Executive Committee",
+    "Advisory",
+    "Subcommittee",
+  ] as const;
+
+  const sortedGroups = useMemo(() => {
+    const entries = Object.entries(grouped);
+
+    return entries
+      .map(
+        ([groupName, members]) =>
+          [
+            groupName,
+            [...members].sort(
+              (a, b) =>
+                (a.displayOrder ?? 9999) - (b.displayOrder ?? 9999) ||
+                a.name.localeCompare(b.name)
+            ),
+          ] as const
+      )
+      .sort(([a], [b]) => {
+        const ai = GROUP_ORDER.indexOf(a as any);
+        const bi = GROUP_ORDER.indexOf(b as any);
+        const ax = ai === -1 ? Number.POSITIVE_INFINITY : ai;
+        const bx = bi === -1 ? Number.POSITIVE_INFINITY : bi;
+        return ax - bx || a.localeCompare(b); // unknown groups go last, alphabetical
+      });
+  }, [grouped]);
 
   return (
     <section id="team" className="flex flex-col items-center justify-center">
@@ -77,45 +107,19 @@ export default function Team() {
 
         {!isLoading && !error && (
           <div className="flex flex-col gap-10">
-            {Object.entries(grouped).map(([groupName, members]) => (
+            {sortedGroups.map(([groupName, members]) => (
               <div key={groupName} className="flex flex-col gap-4">
                 <h2 className="text-xl font-semibold">{groupName}</h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 place-items-stretch lg:grid-cols-4 gap-5">
                   {members.map((m) => (
-                    <a
+                    <TeamCard
                       key={m.id}
-                      href={m.url ?? "#"}
-                      target={m.url ? "_blank" : undefined}
-                      rel={m.url ? "noreferrer" : undefined}
-                      className="rounded-2xl border p-5 hover:opacity-90 transition"
-                      style={{
-                        borderColor: m.borderColor,
-                        background: m.gradient,
-                      }}
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="relative h-14 w-14 overflow-hidden rounded-full bg-black/20">
-                          <Image
-                            src={m.image}
-                            alt={m.title}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <div className="font-semibold">{m.title}</div>
-                          <div className="text-sm text-white/70">
-                            {m.subtitle}
-                          </div>
-                          {m.handle ? (
-                            <div className="text-sm text-white/60">
-                              {m.handle}
-                            </div>
-                          ) : null}
-                        </div>
-                      </div>
-                    </a>
+                      name={m.name}
+                      role={m.role}
+                      href={m.url}
+                      imageUrl={m.image}
+                      imageAlt={m.name}
+                    />
                   ))}
                 </div>
               </div>

@@ -58,21 +58,21 @@ export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
             {/* SSR-safe fallback (no marquee) */}
             {!mounted ? (
               <>
-                <Reveal delay={0.08 * 3}>
+                <Reveal delay={0.08 * 1}>
                   <div className="flex overflow-hidden">
                     {rows[0].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />
                     ))}
                   </div>
                 </Reveal>
-                <Reveal delay={0.08 * 4}>
+                <Reveal delay={0.08 * 2}>
                   <div className="flex overflow-hidden">
                     {rows[1].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />
                     ))}
                   </div>
                 </Reveal>
-                <Reveal delay={0.08 * 5}>
+                <Reveal delay={0.08 * 3}>
                   <div className="flex overflow-hidden">
                     {rows[2].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />
@@ -82,21 +82,21 @@ export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
               </>
             ) : (
               <>
-                <Reveal delay={0.08 * 3}>
+                <Reveal delay={0.08 * 1}>
                   <Marquee speed={50} autoFill pauseOnHover>
                     {rows[0].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />
                     ))}
                   </Marquee>
                 </Reveal>
-                <Reveal delay={0.08 * 4}>
+                <Reveal delay={0.08 * 2}>
                   <Marquee speed={50} direction="right" autoFill pauseOnHover>
                     {rows[1].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />
                     ))}
                   </Marquee>
                 </Reveal>
-                <Reveal delay={0.08 * 5}>
+                <Reveal delay={0.08 * 3}>
                   <Marquee speed={50} direction="left" autoFill pauseOnHover>
                     {rows[2].map((src, i) => (
                       <Card key={src + i} src={src} i={i} />

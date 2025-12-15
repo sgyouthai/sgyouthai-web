@@ -33,18 +33,30 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Security-Policy",
             value: `
-              default-src 'self';
-              script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.posthog.com https://us-assets.i.posthog.com;
-              connect-src 'self' https://*.posthog.com https://vitals.vercel-insights.com https://va.vercel-scripts.com";
-              style-src 'self' 'unsafe-inline';
-              img-src 'self' blob: data: https://*.posthog.com;
-              font-src 'self';
-              object-src 'none';
-              base-uri 'self';
-              form-action 'self';
-              frame-ancestors 'none';
-              connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com;
-            `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline'
+      https://*.posthog.com
+      https://us-assets.i.posthog.com;
+
+    connect-src 'self'
+      https://*.posthog.com
+      https://us.i.posthog.com
+      https://us-assets.i.posthog.com
+      https://*.supabase.co
+      wss://*.supabase.co
+      https://vitals.vercel-insights.com
+      https://va.vercel-scripts.com;
+
+    style-src 'self' 'unsafe-inline'
+      https://us.i.posthog.com;
+
+    img-src 'self' blob: data: https://*.posthog.com;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+  `
               .replace(/\s{2,}/g, " ")
               .trim(),
           },

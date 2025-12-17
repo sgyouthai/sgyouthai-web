@@ -154,8 +154,10 @@ export default function TeamClient({
               <Reveal delay={0.08 * (idx + 1)}>
                 <h2 className="text-xl font-semibold">{groupName}</h2>
               </Reveal>
-
-              <Reveal delay={0.08 * (idx + 2)}>
+              <Reveal
+                delay={0.08 * (idx + 2)}
+                amount={idx == sortedGroups.length - 1 ? "some" : undefined}
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 place-items-stretch lg:grid-cols-4 gap-5">
                   {members.map((m) => (
                     <TeamCard

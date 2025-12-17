@@ -8,18 +8,20 @@ export function Reveal({
   className,
   delay = 0,
   y = 10,
+  amount = 0.2,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   y?: number;
+  amount?: "some" | "all" | number;
 }) {
   return (
     <motion.div
       className={cn(className)}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: amount }}
       transition={{ duration: 0.6, ease: "easeOut", delay }}
     >
       {children}

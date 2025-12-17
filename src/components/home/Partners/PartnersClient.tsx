@@ -126,7 +126,7 @@ function Grid({ sorted }: { sorted: PartnerItem[] }) {
             const card = (
               <div
                 className={[
-                  "group relative w-full p-5 rounded-[15px] flex flex-col border border-white/10",
+                  "group relative w-full p-5 rounded-[25px] flex flex-col border border-white/10 shadow-xl",
                   "bg-gradient-to-b from-blue-500/20 to-blue-500/10 backdrop-blur-[5px]",
                   p.href ? "cursor-pointer hover:border-white/20" : "",
                 ].join(" ")}

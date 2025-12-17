@@ -22,7 +22,7 @@ export default function TeamCard({
   return (
     <div className="w-full self-stretch flex relative">
       <BlueHighlighter />
-      <div className="w-full p-[10px] rounded-[15px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]">
+      <div className="w-full p-[10px] rounded-[25px] flex flex-col border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
         <div className="relative w-full rounded-t-[15px] aspect-square overflow-hidden">
           <Image
             src={imageUrl}

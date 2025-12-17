@@ -21,9 +21,9 @@ export default function EventGalleryClient({ gallery }: { gallery: string[] }) {
   );
 
   const Card = ({ src, i }: { src: string; i: number }) => (
-    <div className="h-48 md:h-64 aspect-[4/3] p-2 mx-2 object-cover rounded-2xl flex-none overflow-hidden relative border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]">
+    <div className="h-48 md:h-64 aspect-[4/3] p-[10px] mx-2 object-cover rounded-[25px] shadow-xl flex-none overflow-hidden relative border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px]">
       <BlueHighlighter />
-      <div className="relative h-full w-full overflow-hidden rounded-xl">
+      <div className="relative h-full w-full overflow-hidden rounded-[15px]">
         <Image
           src={src}
           alt={`Gallery image ${(i % 4) + 1}`}

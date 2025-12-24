@@ -118,7 +118,7 @@ export default function AIMM() {
             target="_blank"
             className="text-[16px] tracking-[-0.5] font-medium  py-6 px-6"
           >
-            Register for this month's AI Meetup!
+            Register for this month&apos;s AI Meetup!
           </Link>
         </Button>
       </Reveal>

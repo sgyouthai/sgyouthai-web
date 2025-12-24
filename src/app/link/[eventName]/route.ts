@@ -95,6 +95,6 @@ export async function GET(req: Request, context: any) {
       }
     );
   }
-
-  return NextResponse.redirect(link.long_url, { status: 302 });
+  return NextResponse.redirect(`${shortUrl}/go`, { status: 302 });
+  // return NextResponse.redirect(link.long_url, { status: 302 });
 }

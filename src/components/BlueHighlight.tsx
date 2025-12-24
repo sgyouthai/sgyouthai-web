@@ -10,7 +10,7 @@ export default function BlueHighlighter({
   return (
     <div
       aria-hidden="true"
-      className={`flex-[0_0_auto] ${className}`}
+      className={`flex-[0_0_auto] ${className} pointer-events-none`}
       style={{
         position: "absolute",
         top,

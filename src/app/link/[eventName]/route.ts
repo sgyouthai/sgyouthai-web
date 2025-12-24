@@ -117,7 +117,7 @@ export async function GET(req: Request, context: any) {
     distinctId,
     event: "shortlink_click",
     properties: {
-      code, // your slug
+      code,
       long_url: link.long_url,
       referrer: ref,
       $current_url: shortUrl,

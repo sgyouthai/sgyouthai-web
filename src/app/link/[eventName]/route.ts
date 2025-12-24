@@ -1,4 +1,3 @@
-// src/app/link/[eventName]/route.ts
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
@@ -54,8 +53,10 @@ function ogHtml(opts: {
 
 export async function GET(
   req: Request,
-  { params }: { params: { eventName: string } }
+  context: { params: { eventName: string } }
 ) {
+  const code = context.params.eventName;
+
   const t = await api();
 
   let link: {
@@ -67,15 +68,15 @@ export async function GET(
   };
 
   try {
-    link = await t.shortLinks.getByCode({ code: params.eventName });
-  } catch {
+    link = await t.shortLinks.getByCode({ code });
+  } catch (e) {
     return new NextResponse("Not found", { status: 404 });
   }
 
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "";
   const shortUrl = base
-    ? `${base.replace(/\/$/, "")}/link/${params.eventName}`
-    : `/link/${params.eventName}`;
+    ? `${base.replace(/\/$/, "")}/link/${code}`
+    : `/link/${code}`;
 
   const wantsPreview = isCrawler(req.headers.get("user-agent"));
 
@@ -97,6 +98,5 @@ export async function GET(
     );
   }
 
-  // Humans: redirect
   return NextResponse.redirect(link.long_url, { status: 302 });
 }

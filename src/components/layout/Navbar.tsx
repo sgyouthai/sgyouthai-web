@@ -36,6 +36,63 @@ type LinkDef = {
   children?: { label: string; href: string; match?: MatchFn }[];
 };
 
+const links: LinkDef[] = [
+  { label: "Home", href: "/", match: (p) => p === "/" },
+
+  {
+    label: "About",
+    href: "/#about",
+    match: (p, h) => p === "/" && h === "#about",
+  },
+
+  {
+    label: "Programs",
+    href: "/programs",
+    match: (p) => p.startsWith("/programs"),
+    children: [
+      {
+        label: "AI Monthly Meetups",
+        href: "/programs#AIMM",
+        match: (p, h) => p === "/programs" && h.toLowerCase() === "#aimm",
+      },
+      {
+        label: "SYAI Inspire",
+        href: "/programs#Inspire",
+        match: (p, h) => p === "/programs" && h.toLowerCase() === "#inspire",
+      },
+      {
+        label: "SYAI Labs",
+        href: "/programs#Labs",
+        match: (p, h) => p === "/programs" && h.toLowerCase() === "#labs",
+      },
+    ],
+  },
+
+  {
+    label: "Team",
+    href: "/#team",
+    match: (p, h) => p === "/" && h === "#team",
+  },
+  {
+    label: "Partners",
+    href: "/#partners",
+    match: (p, h) => p === "/" && h === "#partners",
+  },
+  {
+    label: "Highlights",
+    href: "/#gallery",
+    match: (p, h) => p === "/" && h === "#gallery",
+  },
+  // { label: "FAQ", href: "/#faq", match: (p, h) => p === "/" && h === "#faq" },
+];
+
+const ctaBtn = [
+  // { label: "Join Telegram", href: "https://t.me/sgyouthai" },
+  // { label: "Join Discord", href: "https://discord.gg/TacK5vbeDc" },
+  { label: "Join Our Committee", href: "https://discord.gg/TacK5vbeDc" },
+  { label: "Join Our Events", href: "https://t.me/sgyouthai" },
+];
+
 export default function SiteNavbar() {
   const pathname = usePathname() || "/";
   const [hash, setHash] = useState("");
@@ -106,61 +163,6 @@ export default function SiteNavbar() {
       window.removeEventListener("hashchange", onHashChange);
     };
   }, []);
-
-  const links: LinkDef[] = [
-    { label: "Home", href: "/", match: (p) => p === "/" },
-
-    {
-      label: "About",
-      href: "/#about",
-      match: (p, h) => p === "/" && h === "#about",
-    },
-
-    {
-      label: "Programs",
-      href: "/programs",
-      match: (p) => p.startsWith("/programs"),
-      children: [
-        {
-          label: "AI Monthly Meetups",
-          href: "/programs#AIMM",
-          match: (p, h) => p === "/programs" && h.toLowerCase() === "#aimm",
-        },
-        {
-          label: "SYAI Inspire",
-          href: "/programs#Inspire",
-          match: (p, h) => p === "/programs" && h.toLowerCase() === "#inspire",
-        },
-        {
-          label: "SYAI Labs",
-          href: "/programs#Labs",
-          match: (p, h) => p === "/programs" && h.toLowerCase() === "#labs",
-        },
-      ],
-    },
-
-    {
-      label: "Team",
-      href: "/#team",
-      match: (p, h) => p === "/" && h === "#team",
-    },
-    {
-      label: "Partners",
-      href: "/#partners",
-      match: (p, h) => p === "/" && h === "#partners",
-    },
-    {
-      label: "Highlights",
-      href: "/#gallery",
-      match: (p, h) => p === "/" && h === "#gallery",
-    },
-    // { label: "FAQ", href: "/#faq", match: (p, h) => p === "/" && h === "#faq" },
-  ];
-
-  const ctaBtn = [
-    { label: "Join Telegram", href: "https://t.me/sgyouthai" },
-    { label: "Join Discord", href: "https://discord.gg/TacK5vbeDc" },
-  ];
 
   // Helper: any link containing # should "hold" the navbar open
   const navHoldForHref = (href: string) =>
@@ -282,7 +284,7 @@ export default function SiteNavbar() {
             <Button
               key={`DesktopCTA${e.href}`}
               asChild
-              className="rounded-md bg-blue-600 px-3.5 py-5.5 text-[16px] text-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              className="rounded-md bg-blue-600 px-3.5 py-5.5 text-[15px] text-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
               <Link href={e.href} target="_blank" rel="noreferrer">
                 {e.label}

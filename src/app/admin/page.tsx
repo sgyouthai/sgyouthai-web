@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { api } from "@/app/providers";
 import { useRouter } from "next/navigation";
-import { CreatePostForm } from "@/components/posts/create-post-form";
+import { CreateShortLinkForm } from "@/components/posts/create-short-links-form";
 import { PostCard } from "@/components/posts/post-card";
 
 export default function DashboardPage() {
@@ -20,7 +20,7 @@ export default function DashboardPage() {
   );
 
   const signOutMutation = api.auth.signOut.useMutation({
-    onSuccess: () => router.push("/"),
+    onSuccess: () => router.push("/admin"),
   });
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function DashboardPage() {
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <h2 className="text-2xl font-semibold mb-4">Create New Post</h2>
-          <CreatePostForm onSuccess={() => refetchPosts()} />
+          <CreateShortLinkForm onSuccess={() => refetchPosts()} />
         </div>
 
         <div>

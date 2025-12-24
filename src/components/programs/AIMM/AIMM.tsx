@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/Reveal";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function AIMM() {
@@ -12,14 +13,18 @@ export default function AIMM() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <p className="text-current/60 max-w-xl leading-[26px]">
-            Meet the passionate individuals behind SYAI who are working together
-            to build a community of AI enthusiasts and create innovative
-            solutions.
+          <p className="text-current/60 max-w-3xl leading-[26px]">
+            Our community engagement initiative, developed in collaboration with{" "}
+            <Link href="https://www.youthtech.sg/" target="_blank">
+              YouthTechSG (previously known as Cyber Youth Singapore)
+            </Link>
+            , has secured $50,000 in funding to host Monthly AI Meetups.
           </p>
         </Reveal>
       </div>
-      <Button variant={"secondary"}>Register Now!</Button>
+      <Button variant={"default"} asChild>
+        <Link href="/link/aimm-signup" target="_blank">Register Now!</Link>
+      </Button>
     </section>
   );
 }

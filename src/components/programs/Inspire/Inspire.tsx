@@ -11,10 +11,11 @@ export default function Inspire() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <p className="text-current/60 max-w-xl leading-[26px]">
-            Meet the passionate individuals behind SYAI who are working together
-            to build a community of AI enthusiasts and create innovative
-            solutions.
+          <p className="text-current/60 max-w-3xl leading-[26px]">
+            Our flagship education program is funded with $14,300 to develop the
+            next generation of AI educators. Through this initiative, we
+            collaborate with AI Singapore to launch comprehensive bootcamps that
+            prepare pre-university students to become AI trainers.
           </p>
         </Reveal>
       </div>

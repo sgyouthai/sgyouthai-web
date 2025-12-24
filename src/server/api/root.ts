@@ -6,6 +6,7 @@ import { linkinbioRouter } from "@/server/api/routers/linkinbio";
 import { galleryRouter } from "@/server/api/routers/gallery";
 import { teamRouter } from "@/server/api/routers/team";
 import { partnersRouter } from "@/server/api/routers/partners";
+import { shortLinksRouter } from "@/server/api/routers/shorten";
 
 export const appRouter = createTRPCRouter({
   auth: authRouter,
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
   gallery: galleryRouter,
   team: teamRouter,
   partners: partnersRouter,
+  shortLinks: shortLinksRouter,
 });
 
 export type AppRouter = typeof appRouter;

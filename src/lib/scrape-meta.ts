@@ -1,7 +1,5 @@
-// lib/scrapeMeta.ts
 // Node runtime only (parsing HTML). No client imports here.
-
-type Meta = {
+export type Meta = {
   title?: string;
   description?: string;
   image?: string;
@@ -9,19 +7,42 @@ type Meta = {
   siteName?: string;
 };
 
-const getAttr = (html: string, name: string) => {
-  // Matches: <meta property="og:title" content="...">
-  const re = new RegExp(
-    `<meta[^>]+(?:property|name)=["']${name}["'][^>]+content=["']([^"']+)["']`,
-    "i"
+const MAX_HTML_BYTES = 1_000_000; // 1MB cap
+
+const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const decodeHtmlEntities = (s: string) =>
+  s
+    .replaceAll("&amp;", "&")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">");
+
+const getMetaContent = (html: string, key: string) => {
+  const k = escapeRegex(key);
+
+  // Match a meta tag that contains property/name=key (content can be before/after)
+  const tagRe = new RegExp(
+    `<meta\\s+[^>]*(?:property|name)\\s*=\\s*["']${k}["'][^>]*>`,
+    "ig"
   );
-  const m = html.match(re);
-  return m?.[1];
+
+  const tags = html.match(tagRe);
+  if (!tags?.length) return undefined;
+
+  for (const tag of tags) {
+    const contentRe = /content\s*=\s*["']([^"']+)["']/i;
+    const m = tag.match(contentRe);
+    if (m?.[1]) return decodeHtmlEntities(m[1].trim());
+  }
+  return undefined;
 };
 
 const getTitleTag = (html: string) => {
-  const m = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  return m?.[1]?.trim();
+  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const t = m?.[1]?.trim();
+  return t ? decodeHtmlEntities(t) : undefined;
 };
 
 const absolutize = (maybeUrl: string | undefined, base: string) => {
@@ -33,49 +54,64 @@ const absolutize = (maybeUrl: string | undefined, base: string) => {
   }
 };
 
+const safeUrl = (input: string) => {
+  const u = new URL(input);
+  if (!["http:", "https:"].includes(u.protocol))
+    throw new Error("Invalid protocol");
+  const h = u.hostname.toLowerCase();
+  if (h === "localhost" || h.endsWith(".local") || h.endsWith(".internal")) {
+    throw new Error("Blocked hostname");
+  }
+  return u;
+};
+
 export async function scrapeMeta(
   targetUrl: string,
   opts?: { timeoutMs?: number }
 ): Promise<Meta> {
+  const u = safeUrl(targetUrl);
+
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), opts?.timeoutMs ?? 5000);
 
-  let html = "";
   try {
-    const res = await fetch(targetUrl, {
+    const res = await fetch(u.toString(), {
       signal: ctrl.signal,
-      // cache externally but let Next control ISR above:
-      next: { revalidate: 60 * 60 }, // 1 hour
+      redirect: "follow",
       headers: {
         "user-agent":
           "Mozilla/5.0 (compatible; MetaFetcher/1.0; +https://example.com/bot)",
         accept: "text/html,application/xhtml+xml",
       },
     });
-    html = await res.text();
+
+    const finalUrl = res.url || u.toString();
+
+    // Read with size cap
+    const buf = await res.arrayBuffer();
+    if (buf.byteLength > MAX_HTML_BYTES) throw new Error("HTML too large");
+
+    const html = new TextDecoder("utf-8").decode(buf);
+
+    const title =
+      getMetaContent(html, "og:title") ||
+      getMetaContent(html, "twitter:title") ||
+      getTitleTag(html);
+
+    const description =
+      getMetaContent(html, "og:description") ||
+      getMetaContent(html, "twitter:description") ||
+      getMetaContent(html, "description");
+
+    const imgRaw =
+      getMetaContent(html, "og:image") || getMetaContent(html, "twitter:image");
+
+    const image = absolutize(imgRaw, finalUrl);
+
+    const siteName = getMetaContent(html, "og:site_name");
+
+    return { title, description, image, url: finalUrl, siteName };
   } finally {
     clearTimeout(t);
   }
-
-  // Prefer OG, then Twitter, then plain tags
-  const ogTitle = getAttr(html, "og:title");
-  const twTitle = getAttr(html, "twitter:title");
-  const title = ogTitle || twTitle || getTitleTag(html);
-
-  const ogDesc = getAttr(html, "og:description");
-  const twDesc = getAttr(html, "twitter:description");
-  const desc = ogDesc || twDesc || getAttr(html, "description") || undefined;
-
-  const ogImg = getAttr(html, "og:image") || getAttr(html, "twitter:image");
-  const image = absolutize(ogImg, targetUrl);
-
-  const siteName = getAttr(html, "og:site_name") || undefined;
-
-  return {
-    title,
-    description: desc,
-    image,
-    url: targetUrl,
-    siteName,
-  };
 }

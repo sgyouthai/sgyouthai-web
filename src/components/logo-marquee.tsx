@@ -64,8 +64,8 @@ function Row({
           <Image
             src={src}
             alt="logo"
-            width={40}
-            height={40}
+            width={100}
+            height={100}
             className="h-16 w-auto object-contain"
             priority={i < 3} /* helps avoid layout shift */
           />

@@ -1,5 +1,6 @@
 import AIMM from "@/components/programs/AIMM/AIMM";
 import Inspire from "@/components/programs/Inspire/Inspire";
+import Labs from "@/components/programs/Labs/Labs";
 import GradientSeparator from "@/components/GradientSeparator";
 
 export default function Programs() {
@@ -9,6 +10,8 @@ export default function Programs() {
         <AIMM />
         <GradientSeparator />
         <Inspire />
+        <GradientSeparator />
+        <Labs />
       </main>
     </div>
   );

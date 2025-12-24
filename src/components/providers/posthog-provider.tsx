@@ -14,7 +14,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     ) {
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
         ui_host:
-          process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+          process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com",
         api_host: "/relay-UYdl/",
         person_profiles: "always",
         enable_heatmaps: true,

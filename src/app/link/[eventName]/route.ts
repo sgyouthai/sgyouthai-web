@@ -3,6 +3,20 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { isCrawler } from "@/lib/is-crawler";
 import { api } from "@/server/api/server";
+import crypto from "crypto";
+import { captureAndFlush } from "@/lib/posthog-server";
+
+function getIp(req: Request) {
+  const xff = req.headers.get("x-forwarded-for");
+  return xff?.split(",")[0]?.trim() ?? null;
+}
+
+function distinctIdFromReq(req: Request) {
+  // Stable-ish per user without cookies. Hash to avoid storing raw info.
+  const ip = getIp(req) ?? "noip";
+  const ua = req.headers.get("user-agent") ?? "noua";
+  return crypto.createHash("sha256").update(`${ip}|${ua}`).digest("hex");
+}
 
 function escapeHtml(s: string) {
   return s
@@ -95,6 +109,21 @@ export async function GET(req: Request, context: any) {
       }
     );
   }
-  return NextResponse.redirect(`${shortUrl}/go`, { status: 302 });
-  // return NextResponse.redirect(link.long_url, { status: 302 });
+
+  const distinctId = distinctIdFromReq(req);
+  const ref = req.headers.get("referer") ?? undefined;
+
+  await captureAndFlush({
+    distinctId,
+    event: "shortlink_click",
+    properties: {
+      code, // your slug
+      long_url: link.long_url,
+      referrer: ref,
+      $current_url: shortUrl,
+      ...(getIp(req) ? { $ip: getIp(req) } : {}),
+    },
+  });
+
+  return NextResponse.redirect(link.long_url, { status: 302 });
 }

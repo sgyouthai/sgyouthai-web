@@ -51,8 +51,9 @@ function ogHtml(opts: {
 </html>`;
 }
 
-export async function GET(req: Request, context: unknown) {
-  const code = getParam(context, "eventName");
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(req: Request, context: any) {
+  const code = context.params.eventName as string;
 
   const t = await api();
 
@@ -96,19 +97,4 @@ export async function GET(req: Request, context: unknown) {
   }
 
   return NextResponse.redirect(link.long_url, { status: 302 });
-}
-
-function getParam(context: unknown, key: string): string {
-  if (
-    typeof context === "object" &&
-    context !== null &&
-    "params" in context &&
-    typeof (context as any).params === "object" &&
-    (context as any).params !== null &&
-    key in (context as any).params &&
-    typeof (context as any).params[key] === "string"
-  ) {
-    return (context as any).params[key] as string;
-  }
-  throw new Error("Missing route param");
 }

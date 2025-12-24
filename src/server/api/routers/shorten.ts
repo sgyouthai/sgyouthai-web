@@ -38,7 +38,7 @@ export const shortLinksRouter = createTRPCRouter({
 
       const { data, error } = await ctx.supabase
         .from("short_links")
-        .insert({
+        .upsert({
           code,
           long_url: input.longUrl,
           og_title: input.title ?? meta.title ?? null,

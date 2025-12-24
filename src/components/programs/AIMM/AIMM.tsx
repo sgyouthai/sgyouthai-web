@@ -23,7 +23,9 @@ export default function AIMM() {
         </Reveal>
       </div>
       <Button variant={"default"} asChild>
-        <Link href="/link/aimm-signup" target="_blank">Register Now!</Link>
+        <Link href="/link/aimm-signup" target="_blank">
+          Register Now!
+        </Link>
       </Button>
     </section>
   );

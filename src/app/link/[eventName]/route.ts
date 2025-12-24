@@ -51,11 +51,8 @@ function ogHtml(opts: {
 </html>`;
 }
 
-export async function GET(
-  req: Request,
-  context: { params: { eventName: string } }
-) {
-  const code = context.params.eventName;
+export async function GET(req: Request, context: unknown) {
+  const code = getParam(context, "eventName");
 
   const t = await api();
 
@@ -99,4 +96,19 @@ export async function GET(
   }
 
   return NextResponse.redirect(link.long_url, { status: 302 });
+}
+
+function getParam(context: unknown, key: string): string {
+  if (
+    typeof context === "object" &&
+    context !== null &&
+    "params" in context &&
+    typeof (context as any).params === "object" &&
+    (context as any).params !== null &&
+    key in (context as any).params &&
+    typeof (context as any).params[key] === "string"
+  ) {
+    return (context as any).params[key] as string;
+  }
+  throw new Error("Missing route param");
 }

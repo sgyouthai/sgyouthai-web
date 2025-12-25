@@ -9,18 +9,36 @@ import { useState, useEffect } from "react";
 import ShareButton from "@/components/linkinbio/ShareButton";
 import { EllipsisVertical, Ellipsis, Bell } from "lucide-react";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function LinkRowSkeleton() {
+  return (
+    <div
+      className={cn(
+        "w-full grow flex flex-col gap-2 items-center rounded-[10px] border p-4 relative",
+        "border-white/10 bg-white/[0.03]"
+      )}
+    >
+      <Skeleton className="h-5 w-full" />
+      <Skeleton className="h-5 w-full" />
+    </div>
+  );
+}
 
 export default function LinkInBioPage() {
   const [currentUrl, setCurrentUrl] = useState("");
   const [showHeader, setShowHeader] = useState(true);
 
-  const { data: links = [] } = api.linkinbio.getAll.useQuery(
+  const {
+    data: links = [],
+    isLoading,
+    isFetching,
+  } = api.linkinbio.getAll.useQuery(
     { showHidden: false },
     {
       staleTime: 60_000,
       gcTime: 10 * 60_000,
       refetchOnWindowFocus: false,
-      // ✅ no select -> you get the full objects
     }
   );
 
@@ -34,8 +52,10 @@ export default function LinkInBioPage() {
     setCurrentUrl(window.location.href);
   }, []);
 
+  const showSkeletons = isLoading || (isFetching && links.length === 0);
+
   return (
-    <div className="flex flex-col max-w-xl mx-auto space-y-4 p-5">
+    <div className="flex flex-col max-w-xl mx-auto space-y-5 p-5 w-full">
       <div
         className={cn(
           "fixed px-3 top-5 w-full container mx-auto left-1/2 -translate-x-1/2 flex justify-between transition-all max-w-xl",
@@ -43,27 +63,27 @@ export default function LinkInBioPage() {
         )}
       >
         <Button
-          className="rounded-full"
+          className="rounded-full border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl"
           size="icon"
           onClick={() => toast.info("Coming Soon!")}
-          variant={"secondary"}
+          variant={"ghost"}
         >
           <Bell />
         </Button>
 
         <ShareButton
-          className="rounded-full"
+          className="rounded-full border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl"
           size="icon"
           linkInfo={{
             name: "SG Youth AI",
             href: currentUrl,
           }}
-          variant={"secondary"}
+          variant={"ghost"}
           icon={<Ellipsis />}
         />
       </div>
 
-      <div className="rounded-full border w-fit mx-auto p-2 mt-5 border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
+      <div className="rounded-full border w-fit mx-auto p-2 mt-5 mb-7.5 border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
         <Image
           width={100}
           height={100}
@@ -72,28 +92,41 @@ export default function LinkInBioPage() {
         />
       </div>
 
-      {links.map((link, idx) => (
-        <Link
-          href={link.url}
-          key={(link.id ?? link.url ?? link.title) + idx}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  bg-neutral-100 text-neutral-900 shadow-sm hover:bg-neutral-100/80 w-full px-8 py-6 text-lg min-h-[4.5rem] relative rounded-xl text-center"
-        >
-          <span>{link.title}</span>
-
-          <ShareButton
-            className="absolute right-2"
-            size="icon"
-            variant="ghost"
-            linkInfo={{
-              name: link.title,
-              href: link.url,
-            }}
-            icon={<EllipsisVertical />}
-          />
-        </Link>
-      ))}
+      <div className="flex flex-col gap-5">
+        {showSkeletons ? (
+          <>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <LinkRowSkeleton key={i} />
+            ))}
+          </>
+        ) : (
+          links.map((link, idx) => (
+            <Link
+              href={link.url}
+              key={(link.id ?? link.url ?? link.title) + idx}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                "group w-full flex items-center justify-between rounded-[10px] border py-4 text-left relative",
+                "transition hover:-translate-y-[1px] hover:shadow-sm active:translate-y-0",
+                "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+              )}
+            >
+              <span className="pl-[10px]">{link.title}</span>
+              <ShareButton
+                className="right-2 w-[36px]"
+                size="icon"
+                variant="ghost"
+                linkInfo={{
+                  name: link.title,
+                  href: link.url,
+                }}
+                icon={<EllipsisVertical />}
+              />
+            </Link>
+          ))
+        )}
+      </div>
     </div>
   );
 }

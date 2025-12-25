@@ -96,21 +96,23 @@ export default function AIMM() {
           </p>
         </Reveal>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {goals.map((e, i) => (
-          <div
-            key={"Goals" + i}
-            className="relative  h-full gap-5 w-full p-[20px] rounded-[10px] flex border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl"
-          >
-            <BlueHighlighter />
-            <div className="w-6">{e.icon}</div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-semibold">{e.title}</h3>
-              <p className="text-sm">{e.text}</p>
+      <Reveal delay={0.16}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {goals.map((e, i) => (
+            <div
+              key={"Goals" + i}
+              className="relative  h-full gap-5 w-full p-[20px] rounded-[10px] flex border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl"
+            >
+              <BlueHighlighter />
+              <div className="w-6">{e.icon}</div>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-semibold">{e.title}</h3>
+                <p className="text-sm">{e.text}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Reveal>
       <Reveal delay={0.16}>
         <Button variant={"default"} asChild>
           <Link

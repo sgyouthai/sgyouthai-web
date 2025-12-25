@@ -46,6 +46,7 @@ export default function LinkInBioPage() {
           className="rounded-full"
           size="icon"
           onClick={() => toast.info("Coming Soon!")}
+          variant={"secondary"}
         >
           <Bell />
         </Button>
@@ -57,11 +58,12 @@ export default function LinkInBioPage() {
             name: "SG Youth AI",
             href: currentUrl,
           }}
+          variant={"secondary"}
           icon={<Ellipsis />}
         />
       </div>
 
-      <div className="rounded-full border border-pink-500 w-fit mx-auto p-2 mt-5">
+      <div className="rounded-full border w-fit mx-auto p-2 mt-5 border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
         <Image
           width={100}
           height={100}

@@ -11,16 +11,18 @@ import { EllipsisVertical, Ellipsis, Bell } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function LinkRowSkeleton() {
+function LinkRowSkeleton({ twoLines = false }: { twoLines?: boolean }) {
   return (
-    <div
-      className={cn(
-        "w-full grow flex flex-col gap-2 items-center rounded-[10px] border p-4 relative",
-        "border-white/10 bg-white/[0.03]"
-      )}
-    >
-      <Skeleton className="h-5 w-full" />
-      <Skeleton className="h-5 w-full" />
+    <div className="w-full rounded-[10px] border border-white/10 bg-white/[0.03] p-4 min-h-[70px] flex items-center">
+      <div className="flex items-center justify-between gap-3 w-full">
+        {/* left text area */}
+        <div className="flex flex-col gap-2 flex-1 min-w-0">
+          <Skeleton className="h-5 w-full" />
+          {twoLines && <Skeleton className="h-5 w-3/4 md:hidden" />}
+        </div>
+
+        {/* right icon */}
+      </div>
     </div>
   );
 }
@@ -95,8 +97,8 @@ export default function LinkInBioPage() {
       <div className="flex flex-col gap-5">
         {showSkeletons ? (
           <>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <LinkRowSkeleton key={i} />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <LinkRowSkeleton key={i} twoLines={[0,1,3].includes(i)} />
             ))}
           </>
         ) : (

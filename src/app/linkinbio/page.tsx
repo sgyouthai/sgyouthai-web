@@ -10,10 +10,12 @@ import ShareButton from "@/components/linkinbio/ShareButton";
 import { EllipsisVertical, Ellipsis, Bell } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import BlueHighlighter from "@/components/BlueHighlight";
 
 function LinkRowSkeleton({ twoLines = false }: { twoLines?: boolean }) {
   return (
     <div className="w-full rounded-[10px] border border-white/10 bg-white/[0.03] p-4 min-h-[70px] flex items-center">
+      <BlueHighlighter />
       <div className="flex items-center justify-between gap-3 w-full">
         {/* left text area */}
         <div className="flex flex-col gap-2 flex-1 min-w-0">
@@ -98,7 +100,7 @@ export default function LinkInBioPage() {
         {showSkeletons ? (
           <>
             {Array.from({ length: 5 }).map((_, i) => (
-              <LinkRowSkeleton key={i} twoLines={[0,1,3].includes(i)} />
+              <LinkRowSkeleton key={i} twoLines={[0, 1, 3].includes(i)} />
             ))}
           </>
         ) : (
@@ -114,6 +116,7 @@ export default function LinkInBioPage() {
                 "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
               )}
             >
+              <BlueHighlighter />
               <span className="pl-[10px]">{link.title}</span>
               <ShareButton
                 className="right-2 w-[36px]"

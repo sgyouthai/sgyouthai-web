@@ -9,7 +9,6 @@ export async function GET(request: Request) {
   const error_description = searchParams.get("error_description");
 
   if (error) {
-    // Handle errors (e.g., user didn't confirm)
     return NextResponse.redirect(
       `${origin}/admin/error?error=${error}&description=${error_description}`
     );
@@ -20,11 +19,9 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      // Successful confirmation - redirect to intended page
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
-  // Something went wrong
   return NextResponse.redirect(`${origin}/admin/error`);
 }

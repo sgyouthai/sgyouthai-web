@@ -1,4 +1,3 @@
-// Node runtime only (parsing HTML). No client imports here.
 export type Meta = {
   title?: string;
   description?: string;
@@ -7,7 +6,7 @@ export type Meta = {
   siteName?: string;
 };
 
-const MAX_HTML_BYTES = 1_000_000; // 1MB cap
+const MAX_HTML_BYTES = 1_000_000;
 
 const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -22,7 +21,6 @@ const decodeHtmlEntities = (s: string) =>
 const getMetaContent = (html: string, key: string) => {
   const k = escapeRegex(key);
 
-  // Match a meta tag that contains property/name=key (content can be before/after)
   const tagRe = new RegExp(
     `<meta\\s+[^>]*(?:property|name)\\s*=\\s*["']${k}["'][^>]*>`,
     "ig"
@@ -87,7 +85,6 @@ export async function scrapeMeta(
 
     const finalUrl = res.url || u.toString();
 
-    // Read with size cap
     const buf = await res.arrayBuffer();
     if (buf.byteLength > MAX_HTML_BYTES) throw new Error("HTML too large");
 

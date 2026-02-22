@@ -1,7 +1,6 @@
 import "server-only";
 import { PostHog } from "posthog-node";
 
-// You can reuse NEXT_PUBLIC_POSTHOG_KEY, but best practice is a server env var.
 const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 if (!key) throw new Error("Missing NEXT_PUBLIC_POSTHOG_KEY");
 
@@ -15,7 +14,6 @@ export async function captureAndFlush(
 ) {
   posthogServer.capture(payload);
 
-  // Different posthog-node versions expose different flush methods.
   const phAny = posthogServer as unknown as {
     flush?: () => void;
     flushAsync?: () => Promise<void>;

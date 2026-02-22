@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Separator } from "@radix-ui/react-separator";
 
 export default function Footer() {
-  // Define footer links
   const footerLinks = [
     {
       title: "Company",
@@ -26,18 +25,17 @@ export default function Footer() {
       title: "Community",
       links: [
         { name: "Join Community", href: "https://t.me/sgyouthai" },
-        { name: "Join Committee", href: "#join-committee" },
+        { name: "Join Committee", href: "/signup/subcommittee" },
         {
           name: "Monthly Meetup",
-          href: "https://aisdc.aisingapore.org/",
+          href: "/link/aimm-signup",
           isExternal: true,
         },
-        { name: "Gallery", href: "#gallery" },
+        { name: "Gallery", href: "/#gallery" },
       ],
     },
   ];
 
-  // Define social media links with accurate brand logos
   const socialLinks = [
     {
       name: "Telegram",

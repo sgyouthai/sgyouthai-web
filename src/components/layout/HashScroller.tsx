@@ -4,21 +4,16 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 function cssEscape(value: string) {
-  // CSS.escape exists in modern browsers; fallback to simple escaping if not
   if (typeof CSS !== "undefined" && "escape" in CSS) {
-    // CSS.escape is part of the lib.dom types in TS, so this is typed
     return CSS.escape(value);
   }
-  // minimal fallback (good enough for most ids)
   return value.replace(/"/g, '\\"');
 }
 
 function findTarget(id: string) {
-  // exact match
   const direct = document.getElementById(id);
   if (direct) return direct;
 
-  // case-insensitive fallback
   try {
     const escaped = cssEscape(id);
     return document.querySelector(`[id="${escaped}" i]`) as HTMLElement | null;
@@ -30,9 +25,9 @@ function findTarget(id: string) {
 function scrollToHash(hash: string, behavior: ScrollBehavior) {
   if (!hash) return;
 
-  const id = decodeURIComponent(hash.slice(1)); // remove leading '#'
+  const id = decodeURIComponent(hash.slice(1));
   let tries = 0;
-  const maxTries = 90; // ~1.5s at 60fps
+  const maxTries = 90;
 
   const prefersReduced =
     window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
@@ -42,7 +37,6 @@ function scrollToHash(hash: string, behavior: ScrollBehavior) {
   const tryScroll = () => {
     const el = findTarget(id);
     if (el) {
-      // CSS scroll-padding-top will handle navbar offset
       el.scrollIntoView({ block: "start", behavior: finalBehavior });
       return;
     }
@@ -56,8 +50,6 @@ export default function HashScroller() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // On route changes, the hash may be set a moment later.
-    // So we poll for a short window until it appears, then scroll.
     let raf = 0;
     const start = performance.now();
 

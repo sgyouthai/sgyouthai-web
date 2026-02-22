@@ -29,7 +29,6 @@ export function Reveal({
   );
 }
 
-// For hero (above the fold): do NOT hide on first paint.
 export function HeroReveal({
   children,
   className,
@@ -44,7 +43,7 @@ export function HeroReveal({
   return (
     <motion.div
       className={cn(className)}
-      initial={false} // <-- key for LCP
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut", delay }}
     >

@@ -22,19 +22,16 @@ export const shortLinksRouter = createTRPCRouter({
         title: z.string().min(1).max(120).optional(),
         description: z.string().min(1).max(300).optional(),
         image: z.string().url().optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const code = input.code ?? nanoid(7);
 
-      // Scrape OG tags (best effort)
       let meta: { title?: string; description?: string; image?: string } = {};
       try {
         const m = await scrapeMeta(input.longUrl, { timeoutMs: 5000 });
         meta = { title: m.title, description: m.description, image: m.image };
-      } catch {
-        // ignore scrape failures
-      }
+      } catch {}
 
       const { data, error } = await ctx.supabase
         .from("short_links")

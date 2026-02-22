@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const CONSTANT_LOGOS = ["/window.svg", "/vercel.svg", "/file.svg"]; // 40–80px tall PNG/SVGs
+const CONSTANT_LOGOS = ["/window.svg", "/vercel.svg", "/file.svg"]; 
 
 interface LogoMarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Animation duration in seconds */

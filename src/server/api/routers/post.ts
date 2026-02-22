@@ -191,7 +191,6 @@ export const postRouter = createTRPCRouter({
   togglePublish: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      // First, get the current status
       const { data: post, error: fetchError } = await ctx.supabase
         .from("posts")
         .select("published")
@@ -206,7 +205,6 @@ export const postRouter = createTRPCRouter({
         });
       }
 
-      // Toggle the status
       const { data, error } = await ctx.supabase
         .from("posts")
         .update({ published: !post.published })

@@ -9,7 +9,6 @@ function Error() {
   const router = useRouter();
 
   useEffect(() => {
-    // Use setTimeout to delay the redirection
     const timeoutId = setTimeout(() => {
       router.push("/");
       // router.back(); // Navigate back in the history stack
@@ -17,9 +16,8 @@ function Error() {
 
     const intervalId = setInterval(() => {
       setCountdown((prevCountdown) => prevCountdown - 1);
-    }, 1000); // Update countdown every 1 second
+    }, 1000);
 
-    // Cleanup function to clear the timeout and interval
     return () => {
       clearTimeout(timeoutId);
       clearInterval(intervalId);

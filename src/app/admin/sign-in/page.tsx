@@ -1,10 +1,8 @@
-// import Link from "next/link";
 import { SignInForm } from "@/components/auth/sign-in-form";
 import {
   Card,
   CardContent,
   CardDescription,
-  // CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";

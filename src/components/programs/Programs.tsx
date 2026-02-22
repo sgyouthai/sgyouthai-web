@@ -16,7 +16,7 @@ export default function ProgramsBody() {
     {
       title: "SYAI Inspire",
       description:
-        "Our youth-led outreach programme that trains youths in AI and empowers them to teach secondary school students through talks and workshops.",
+        "Our youth-led outreach programme that trains youths in AI and empowers them to teach school students through talks and workshops.",
       src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/NewTownPresentation.jpg",
       cta: "/programs#Inspire",
     },

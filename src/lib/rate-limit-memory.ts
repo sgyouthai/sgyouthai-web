@@ -1,10 +1,9 @@
-// Simple in-memory rate limiter with better handling
 const attempts = new Map<string, { count: number; resetTime: number }>();
 
 export function checkRateLimit(
   identifier: string,
   maxAttempts: number = 10,
-  windowMs: number = 60000
+  windowMs: number = 60000,
 ): boolean {
   const now = Date.now();
   const userAttempts = attempts.get(identifier);
@@ -18,9 +17,8 @@ export function checkRateLimit(
   }
 
   if (userAttempts.count >= maxAttempts) {
-    // Log for debugging
     console.warn(
-      `Rate limit hit: ${identifier} - ${userAttempts.count}/${maxAttempts}`
+      `Rate limit hit: ${identifier} - ${userAttempts.count}/${maxAttempts}`,
     );
     return false;
   }
@@ -29,9 +27,7 @@ export function checkRateLimit(
   return true;
 }
 
-// Clean up old entries periodically
 if (typeof window === "undefined") {
-  // Only run on server
   setInterval(() => {
     const now = Date.now();
     let cleaned = 0;
@@ -44,10 +40,9 @@ if (typeof window === "undefined") {
     if (cleaned > 0) {
       console.log(`Cleaned ${cleaned} expired rate limit entries`);
     }
-  }, 60000); // Clean every minute
+  }, 60000);
 }
 
-// Export a function to manually clear rate limits (useful for testing)
 export function clearRateLimits() {
   attempts.clear();
   console.log("All rate limits cleared");

@@ -17,6 +17,7 @@ export const galleryRouter = createTRPCRouter({
     return (files ?? []).map((f) => {
       const path = `gallery/${f.name}`;
       const { data } = ctx.supabase.storage.from("syai-web").getPublicUrl(path);
+
       return { ...f, path, publicUrl: data.publicUrl };
     });
   }),

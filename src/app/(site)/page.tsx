@@ -5,6 +5,7 @@ import Partners from "@/components/home/Partners/Partners";
 import EventGallery from "@/components/home/EventGallery/EventGallery";
 import GradientSeparator from "@/components/GradientSeparator";
 import { Suspense } from "react";
+import ProgramsBody from "@/components/programs/Programs";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,8 @@ export default function HomePage() {
         <Hero />
         <GradientSeparator />
         <About />
+        <GradientSeparator />
+        <ProgramsBody />
         <GradientSeparator />
 
         <Team />

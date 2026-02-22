@@ -11,7 +11,6 @@ export default function TrailingCursor() {
   const [enabled, setEnabled] = useState(false);
   const [active, setActive] = useState(false);
 
-  // only create motion values if enabled (after mount)
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   const smoothX = useSpring(mouseX, { stiffness: 200, damping: 25, mass: 0.4 });
@@ -33,7 +32,7 @@ export default function TrailingCursor() {
     const onMove = (e: PointerEvent) => {
       lastX = e.clientX - CURSOR_SIZE / 2;
       lastY = e.clientY - CURSOR_SIZE / 2;
-      if (raf) return; // don’t cancel+reschedule every event
+      if (raf) return;
       raf = requestAnimationFrame(() => {
         mouseX.set(lastX);
         mouseY.set(lastY);
@@ -70,7 +69,6 @@ export default function TrailingCursor() {
     };
   }, [mouseX, mouseY]);
 
-  // Don’t render at all unless we detected a fine pointer
   if (!enabled) return null;
 
   return (

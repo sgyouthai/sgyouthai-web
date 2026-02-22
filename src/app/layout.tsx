@@ -65,8 +65,8 @@ export const metadata: Metadata = {
     title: "SYAI — Singapore Youth AI",
     description: `Join Singapore's leading youth AI community with ${totalMembers}+ members.`,
     images: [ogImage],
-    site: "@sgyouthai", // if you have one
-    creator: "@sgyouthai", // if you have one
+    site: "@sgyouthai",
+    creator: "@sgyouthai",
   },
   robots: {
     index: true,
@@ -142,7 +142,6 @@ function OrganizationJsonLd() {
 }
 
 function WebSiteJsonLd() {
-  // Adds SearchAction so Google can show a site links search box
   const json = {
     "@context": "https://schema.org",
     "@type": "WebSite",

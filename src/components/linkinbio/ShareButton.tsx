@@ -66,7 +66,6 @@ type SocialDef = {
 };
 
 function safeCopy(text: string) {
-  // Clipboard only works on secure contexts; provide a fallback.
   if (navigator.clipboard?.writeText)
     return navigator.clipboard.writeText(text);
   const ta = document.createElement("textarea");
@@ -120,7 +119,6 @@ function ShareBody({
     if (!el) return;
 
     const max = el.scrollWidth - el.clientWidth;
-    // small epsilon to avoid flicker from fractional pixels
     const left = el.scrollLeft;
 
     setCanScrollLeft(left > 1);
@@ -133,14 +131,12 @@ function ShareBody({
     const el = scrollRef.current;
     if (!el) return;
 
-    // run once after layout
     requestAnimationFrame(updateArrows);
 
     const onScroll = () => updateArrows();
     el.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", updateArrows);
 
-    // optional but nice: handles content/width changes
     const ro = new ResizeObserver(() => updateArrows());
     ro.observe(el);
 
@@ -301,7 +297,6 @@ export default function ShareButton({
   const handleTriggerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     posthog?.capture(`Clicked ShareButton: ${linkInfo.name}`);
     e.stopPropagation();
-    // keep preventDefault in case the button sits inside a Link/card
     e.preventDefault();
     setOpen(true);
   };
@@ -313,7 +308,6 @@ export default function ShareButton({
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1000);
     } catch {
-      // optional: toast here
     }
   };
 

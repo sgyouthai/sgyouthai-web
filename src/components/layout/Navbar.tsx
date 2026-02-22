@@ -89,7 +89,7 @@ const links: LinkDef[] = [
 const ctaBtn = [
   // { label: "Join Telegram", href: "https://t.me/sgyouthai" },
   // { label: "Join Discord", href: "https://discord.gg/TacK5vbeDc" },
-  { label: "Join Our Committee", href: "https://discord.gg/TacK5vbeDc" },
+  { label: "Join Our Committee", href: "/signup/subcommittee" },
   { label: "Join Our Events", href: "https://t.me/sgyouthai" },
 ];
 
@@ -97,7 +97,6 @@ export default function SiteNavbar() {
   const pathname = usePathname() || "/";
   const [hash, setHash] = useState("");
 
-  // Track hash so active states can work (since usePathname() doesn't include it)
   useEffect(() => {
     const sync = () => setHash(window.location.hash || "");
     sync();
@@ -132,7 +131,6 @@ export default function SiteNavbar() {
       requestAnimationFrame(() => {
         const y = window.scrollY;
 
-        // ✅ while locked, keep lastY updated so delta won't "spike" later
         if (performance.now() < lockHideUntil.current) {
           lastY.current = y;
           setHidden(false);
@@ -152,7 +150,6 @@ export default function SiteNavbar() {
       });
     };
 
-    // If hash changes (including clicking /#something), keep nav visible briefly
     const onHashChange = () => holdNav(2000);
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -164,7 +161,6 @@ export default function SiteNavbar() {
     };
   }, []);
 
-  // Helper: any link containing # should "hold" the navbar open
   const navHoldForHref = (href: string) =>
     href.includes("#") ? () => holdNav(2000) : undefined;
 
@@ -223,7 +219,7 @@ export default function SiteNavbar() {
                           "inline-flex items-center gap-1 text-[16px] font-normal text-white/60 transition-opacity hover:opacity-100 focus:outline-none",
                           isActive && "opacity-100"
                         )}
-                        onClick={() => holdNav(1200)} // keep nav visible when opening dropdown
+                        onClick={() => holdNav(1200)}
                       >
                         {item.label}
                         <ChevronDown className="h-4 w-4" />
@@ -349,7 +345,6 @@ export default function SiteNavbar() {
                         (item.match?.(pathname, hash) ?? false) ||
                         anyChildActive;
 
-                      // No children -> simple link
                       if (!item.children?.length) {
                         return (
                           <li key={item.href}>
@@ -358,7 +353,6 @@ export default function SiteNavbar() {
                               active={isActive}
                               className="block rounded-lg px-3 py-2 text-base"
                               onHashNavigate={() => {
-                                // if it's an anchor, keep navbar visible; also close the sheet
                                 if (item.href.includes("#")) holdNav(1200);
                                 setMobileOpen(false);
                               }}
@@ -370,7 +364,6 @@ export default function SiteNavbar() {
                         );
                       }
 
-                      // With children -> accordion
                       return (
                         <li key={item.href}>
                           <Accordion
@@ -477,20 +470,16 @@ function NavLink({
     <Link
       href={href}
       className={base}
-      // ✅ important: prevent Next from doing its own jump
       scroll={!isHash}
       onClick={(e) => {
         onHashNavigate?.();
 
         if (!isHash) return;
 
-        // Parse href like "/#about" or "/programs#AIMM"
         const [rawPath, rawHash] = href.split("#");
         const targetPath = rawPath || currentPathname;
         const targetHash = rawHash ? `#${rawHash}` : "";
 
-        // If it's the same page, Next uses pushState (no native hashchange),
-        // so we do it ourselves and fire an event that HashScroller listens to.
         if (targetPath === currentPathname) {
           e.preventDefault();
           history.pushState(null, "", `${targetPath}${targetHash}`);

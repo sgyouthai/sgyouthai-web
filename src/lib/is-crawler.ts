@@ -1,7 +1,6 @@
 export function isCrawler(userAgent: string | null) {
   const ua = (userAgent ?? "").toLowerCase();
 
-  // WhatsApp/Telegram link preview fetchers + common unfurl bots
   const bots = [
     "whatsapp",
     "telegrambot",

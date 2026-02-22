@@ -12,7 +12,6 @@ function getIp(req: Request) {
 }
 
 function distinctIdFromReq(req: Request) {
-  // Stable-ish per user without cookies. Hash to avoid storing raw info.
   const ip = getIp(req) ?? "noip";
   const ua = req.headers.get("user-agent") ?? "noua";
   return crypto.createHash("sha256").update(`${ip}|${ua}`).digest("hex");

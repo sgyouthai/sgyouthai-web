@@ -8,7 +8,6 @@ import { TRPCError } from "@trpc/server";
 
 export const authRouter = createTRPCRouter({
   getSession: publicProcedure.query(({ ctx }) => {
-    // Debug logging
     if (!ctx.user) {
       console.log("No user in session");
     }

@@ -206,7 +206,7 @@ export default function Inspire() {
               School Talks/Workshops
             </h2>
             <p className="text-current/60 max-w-3xl leading-[26px]">
-              We engage secondary school students through youth-led sessions
+              We engage school students through youth-led sessions
               that build foundational AI knowledge, encourage open discussions,
               and strengthen awareness of ethics and responsible AI use,
               enabling students to apply AI more effectively to boost

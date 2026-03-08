@@ -1,9 +1,9 @@
 import { Reveal } from "@/components/motion/Reveal";
 import BlueHighlighter from "@/components/BlueHighlight";
-import Image from "next/image";
 import Link from "next/link";
 import { InspireCarousel } from "./InspireCarousel";
 import { BsPatchCheckFill } from "react-icons/bs";
+import CustomButton from "@/components/CustomButton";
 
 export default function Inspire() {
   const afterBootcampGoals = [
@@ -186,6 +186,11 @@ export default function Inspire() {
                 })}
               </ul>
             </div>
+            <CustomButton asChild className="w-fit">
+              <Link href="/signup/subcommittee" target="_blank">
+                Sign up for Bootcamps!
+              </Link>
+            </CustomButton>
           </div>
         </Reveal>
 
@@ -206,11 +211,11 @@ export default function Inspire() {
               School Talks/Workshops
             </h2>
             <p className="text-current/60 max-w-3xl leading-[26px]">
-              We engage school students through youth-led sessions
-              that build foundational AI knowledge, encourage open discussions,
-              and strengthen awareness of ethics and responsible AI use,
-              enabling students to apply AI more effectively to boost
-              productivity and learning.
+              We engage school students through youth-led sessions that build
+              foundational AI knowledge, encourage open discussions, and
+              strengthen awareness of ethics and responsible AI use, enabling
+              students to apply AI more effectively to boost productivity and
+              learning.
             </p>
             <p className="text-current/60 max-w-3xl leading-[26px]">
               To date, we have reached {inspireOutreach}+ students across
@@ -236,6 +241,13 @@ export default function Inspire() {
                 })}
               </ul>
             </div>
+            <CustomButton asChild className="w-fit">
+              <Link
+                href={"mailto:inspire@sgyouthai.org?subject=Connect With Us"}
+              >
+                Reach Out to Inspire
+              </Link>
+            </CustomButton>
           </div>
         </Reveal>
       </div>

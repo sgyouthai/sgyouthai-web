@@ -52,7 +52,7 @@ export default function PartnersClient({
       initialData: initialRows,
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,
-    }
+    },
   );
 
   const rows = data ?? initialRows;
@@ -60,7 +60,6 @@ export default function PartnersClient({
   const showSkeleton = isLoading && rows.length === 0;
 
   const items = useMemo<PartnerItem[]>(() => {
-    const rows = data ?? [];
     return rows.map((r) => ({
       id: r.id,
       name: r.name,
@@ -68,11 +67,11 @@ export default function PartnersClient({
       image: r.image_url,
       displayOrder: r.display_order ?? 9999,
     }));
-  }, [data]);
+  }, [rows]);
 
   const sorted = useMemo(() => {
     return [...items].sort(
-      (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name)
+      (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
     );
   }, [items]);
 

@@ -28,7 +28,7 @@ export default function Footer() {
         { name: "Join Committee", href: "/signup/subcommittee" },
         {
           name: "Monthly Meetup",
-          href: "/link/aimm-signup",
+          href: "https://docs.google.com/forms/d/e/1FAIpQLScx5d-lzdsk4jnvNBVpjaMFRNmzxcSHWBchEknHNDVmUapqAQ/viewform",
           isExternal: true,
         },
         { name: "Gallery", href: "/#gallery" },

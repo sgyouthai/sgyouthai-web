@@ -97,7 +97,7 @@ export default function PartnersClient({
 
         <Reveal delay={0.08}>
           <p className="text-current/60 max-w-lg leading-[26px]">
-            Working together with Singapore&apos;s leading organisations to
+            Collaborated with Singapore&apos;s leading organisations to
             advance AI education and innovation.
           </p>
         </Reveal>

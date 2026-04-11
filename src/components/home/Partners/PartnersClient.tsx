@@ -46,16 +46,13 @@ export default function PartnersClient({
 }: {
   initialRows: PartnersRow[];
 }) {
-  const { data, isLoading, isFetching, error } = api.partners.getAll.useQuery(
-    undefined,
-    {
-      initialData: initialRows,
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 10,
-    },
-  );
+  const { data, isLoading, error } = api.partners.getAll.useQuery(undefined, {
+    initialData: initialRows,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10,
+  });
 
-  const rows = data ?? initialRows;
+  const rows = useMemo(() => data ?? [], [data]);
 
   const showSkeleton = isLoading && rows.length === 0;
 
@@ -97,8 +94,8 @@ export default function PartnersClient({
 
         <Reveal delay={0.08}>
           <p className="text-current/60 max-w-lg leading-[26px]">
-            Collaborated with Singapore&apos;s leading organisations to
-            advance AI education and innovation.
+            Collaborated with Singapore&apos;s leading organisations to advance
+            AI education and innovation.
           </p>
         </Reveal>
       </div>

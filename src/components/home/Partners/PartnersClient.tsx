@@ -46,21 +46,17 @@ export default function PartnersClient({
 }: {
   initialRows: PartnersRow[];
 }) {
-  const { data, isLoading, isFetching, error } = api.partners.getAll.useQuery(
-    undefined,
-    {
-      initialData: initialRows,
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 10,
-    }
-  );
+  const { data, isLoading, error } = api.partners.getAll.useQuery(undefined, {
+    initialData: initialRows,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10,
+  });
 
-  const rows = data ?? initialRows;
+  const rows = useMemo(() => data ?? [], [data]);
 
   const showSkeleton = isLoading && rows.length === 0;
 
   const items = useMemo<PartnerItem[]>(() => {
-    const rows = data ?? [];
     return rows.map((r) => ({
       id: r.id,
       name: r.name,
@@ -68,11 +64,11 @@ export default function PartnersClient({
       image: r.image_url,
       displayOrder: r.display_order ?? 9999,
     }));
-  }, [data]);
+  }, [rows]);
 
   const sorted = useMemo(() => {
     return [...items].sort(
-      (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name)
+      (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
     );
   }, [items]);
 
@@ -98,8 +94,8 @@ export default function PartnersClient({
 
         <Reveal delay={0.08}>
           <p className="text-current/60 max-w-lg leading-[26px]">
-            Working together with Singapore&apos;s leading organisations to
-            advance AI education and innovation.
+            Collaborated with Singapore&apos;s leading organisations to advance
+            AI education and innovation.
           </p>
         </Reveal>
       </div>

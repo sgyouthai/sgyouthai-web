@@ -12,7 +12,7 @@ const getTeam = unstable_cache(
   {
     revalidate: 60 * 30,
     tags: ["home-team"],
-  }
+  },
 );
 
 export default async function Team() {

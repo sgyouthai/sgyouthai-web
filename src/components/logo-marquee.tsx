@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const CONSTANT_LOGOS = ["/window.svg", "/vercel.svg", "/file.svg"]; 
+const CONSTANT_LOGOS = ["/window.svg", "/vercel.svg", "/file.svg"];
 
 interface LogoMarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Animation duration in seconds */
@@ -61,13 +60,15 @@ function Row({
           key={i}
           className="shrink-0 opacity-60 transition-opacity hover:opacity-100"
         >
-          <Image
+          <img
             src={src}
-            alt="logo"
+            alt=""
+            aria-hidden="true"
             width={100}
             height={100}
             className="h-16 w-auto object-contain"
-            priority={i < 3} /* helps avoid layout shift */
+            loading="lazy"
+            decoding="async"
           />
         </div>
       ))}

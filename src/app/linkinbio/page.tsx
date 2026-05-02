@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { api } from "@/app/providers";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -43,7 +42,7 @@ export default function LinkInBioPage() {
       staleTime: 60_000,
       gcTime: 10 * 60_000,
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   useEffect(() => {
@@ -63,7 +62,7 @@ export default function LinkInBioPage() {
       <div
         className={cn(
           "fixed px-3 top-5 w-full container mx-auto left-1/2 -translate-x-1/2 flex justify-between transition-all max-w-xl",
-          showHeader ? "opacity-100" : "opacity-0"
+          showHeader ? "opacity-100" : "opacity-0",
         )}
       >
         <Button
@@ -88,10 +87,10 @@ export default function LinkInBioPage() {
       </div>
 
       <div className="rounded-full border w-fit mx-auto p-2 mt-5 mb-7.5 border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
-        <Image
+        <img
           width={100}
           height={100}
-          alt="SYAI LOGO"
+          alt="SYAI Logo"
           src="/SYAI_Logo_White.png"
         />
       </div>
@@ -113,7 +112,7 @@ export default function LinkInBioPage() {
               className={cn(
                 "group w-full flex items-center justify-between rounded-[10px] border py-4 text-left relative",
                 "transition hover:-translate-y-[1px] hover:shadow-sm active:translate-y-0",
-                "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]",
               )}
             >
               <BlueHighlighter />

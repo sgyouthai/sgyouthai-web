@@ -189,7 +189,9 @@ export default function Inspire() {
               </ul>
             </div>
             <CustomButton asChild className="w-fit">
-              <Link href="/signup/inspire">Sign up for Bootcamps!</Link>
+              <Link href="/signup/inspire" target="_blank">
+                Sign up for Bootcamps!
+              </Link>
             </CustomButton>
           </div>
         </Reveal>
@@ -243,7 +245,7 @@ export default function Inspire() {
             </div>
             <CustomButton asChild className="w-fit">
               <Link
-                href={"mailto:inspire@sgyouthai.org?subject=Connect With Us"}
+                href={"mailto:inspire@sgyouthai.org?subject=SYAI Inspire Inquiry"}
               >
                 Reach Out to Inspire
               </Link>

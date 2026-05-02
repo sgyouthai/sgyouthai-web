@@ -1,1 +1,1 @@
-export const totalMembers = 500;
+export const totalMembers = 700;

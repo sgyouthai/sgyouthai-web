@@ -26,6 +26,23 @@ type TeamItem = {
   displayOrder: number;
 };
 
+function normalizeGroupName(group: string | null) {
+  if (!group) return "Team";
+
+  if (group.trim().toLowerCase() === "youth advisory council") {
+    return "Advisory";
+  }
+
+  return group;
+}
+
+const GROUP_ORDER = [
+  "Board Members",
+  "Executive Committee",
+  "Advisory",
+  "Subcommittee",
+] as const;
+
 function TeamSkeleton() {
   return (
     <div className="flex flex-col gap-10">
@@ -76,7 +93,7 @@ export default function TeamClient({
       name: r.name,
       role: r.role,
       url: r.linkedin_url ?? "",
-      group: r.group ?? "Team",
+      group: normalizeGroupName(r.group),
       displayOrder: r.display_order ?? 9999,
     }));
   }, [data]);
@@ -87,13 +104,6 @@ export default function TeamClient({
       return acc;
     }, {});
   }, [items]);
-
-  const GROUP_ORDER = [
-    "Board Members",
-    "Executive Committee",
-    "Advisory",
-    "Subcommittee",
-  ] as const;
 
   const groupRank = useMemo<Record<string, number>>(() => {
     const rank: Record<string, number> = {};
@@ -108,7 +118,7 @@ export default function TeamClient({
       .map(([groupName, members]) => {
         const sortedMembers = [...members].sort(
           (a, b) =>
-            a.displayOrder - b.displayOrder || a.name.localeCompare(b.name)
+            a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
         );
         return [groupName, sortedMembers] as const;
       })

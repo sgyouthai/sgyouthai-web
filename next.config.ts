@@ -34,8 +34,10 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: `
     default-src 'self';
+
     script-src 'self' 'unsafe-eval' 'unsafe-inline'
       https://*.posthog.com
+      https://us.i.posthog.com
       https://us-assets.i.posthog.com;
 
     connect-src 'self'
@@ -60,10 +62,10 @@ const nextConfig: NextConfig = {
       https://*.posthog.com
       https://*.googleusercontent.com
       https://ssl.gstatic.com;
+
     font-src 'self';
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
     frame-ancestors 'none';
   `
               .replace(/\s{2,}/g, " ")

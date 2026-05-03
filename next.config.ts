@@ -57,6 +57,7 @@ const nextConfig: NextConfig = {
       https://docs.google.com;
 
     style-src 'self' 'unsafe-inline'
+      https://*.posthog.com
       https://us.i.posthog.com;
 
     img-src 'self' blob: data:
@@ -64,10 +65,12 @@ const nextConfig: NextConfig = {
       https://*.googleusercontent.com
       https://ssl.gstatic.com;
 
-    font-src 'self';
+    worker-src 'self' blob: data:;
+    frame-ancestors 'self' https://*.posthog.com;
+    font-src https://*.posthog.com;
+    media-src https://*.posthog.com;
     object-src 'none';
     base-uri 'self';
-    frame-ancestors 'none';
   `
               .replace(/\s{2,}/g, " ")
               .trim(),

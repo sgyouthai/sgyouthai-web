@@ -45,12 +45,21 @@ const nextConfig: NextConfig = {
       https://*.supabase.co
       wss://*.supabase.co
       https://vitals.vercel-insights.com
-      https://va.vercel-scripts.com;
+      https://va.vercel-scripts.com
+      https://forms.gle
+      https://docs.google.com;
+
+    form-action 'self'
+      https://forms.gle
+      https://docs.google.com;
 
     style-src 'self' 'unsafe-inline'
       https://us.i.posthog.com;
 
-    img-src 'self' blob: data: https://*.posthog.com;
+    img-src 'self' blob: data:
+      https://*.posthog.com
+      https://*.googleusercontent.com
+      https://ssl.gstatic.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';

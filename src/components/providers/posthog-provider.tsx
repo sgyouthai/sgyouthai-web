@@ -19,6 +19,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         enable_heatmaps: true,
         autocapture: true,
         capture_pageleave: true,
+        disable_session_recording: false,
         capture_pageview: "history_change",
         loaded: (posthog) => {
           if (process.env.NODE_ENV === "development") posthog.debug(false);

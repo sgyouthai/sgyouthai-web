@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 function Error() {
   const [countdown, setCountdown] = useState(3);
@@ -26,8 +25,7 @@ function Error() {
 
   return (
     <div className="justify-center items-center flex flex-col h-screen gap-2">
-      <Image
-        loading="eager"
+      <img
         className="w-[300px] aspect-[4/3] object-contain"
         src="/404.png"
         alt=""

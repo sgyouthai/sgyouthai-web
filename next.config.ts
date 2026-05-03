@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  skipTrailingSlashRedirect: true,
   async headers() {
     return [
       {
@@ -34,8 +35,10 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: `
     default-src 'self';
+
     script-src 'self' 'unsafe-eval' 'unsafe-inline'
       https://*.posthog.com
+      https://us.i.posthog.com
       https://us-assets.i.posthog.com;
 
     connect-src 'self'
@@ -45,17 +48,29 @@ const nextConfig: NextConfig = {
       https://*.supabase.co
       wss://*.supabase.co
       https://vitals.vercel-insights.com
-      https://va.vercel-scripts.com;
+      https://va.vercel-scripts.com
+      https://forms.gle
+      https://docs.google.com;
+
+    form-action 'self'
+      https://forms.gle
+      https://docs.google.com;
 
     style-src 'self' 'unsafe-inline'
+      https://*.posthog.com
       https://us.i.posthog.com;
 
-    img-src 'self' blob: data: https://*.posthog.com;
-    font-src 'self';
+    img-src 'self' blob: data:
+      https://*.posthog.com
+      https://*.googleusercontent.com
+      https://ssl.gstatic.com;
+
+    worker-src 'self' blob: data:;
+    frame-ancestors 'self' https://*.posthog.com;
+    font-src https://*.posthog.com;
+    media-src https://*.posthog.com;
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
   `
               .replace(/\s{2,}/g, " ")
               .trim(),

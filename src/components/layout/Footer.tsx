@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Separator } from "@radix-ui/react-separator";
+import { currentYear } from "@/app/const";
 
 export default function Footer() {
   const footerLinks = [
@@ -168,8 +169,7 @@ export default function Footer() {
         />
 
         <p className="text-center text-base text-white/50">
-          &copy; {new Date().getFullYear()} Singapore Youth AI. All rights
-          reserved.
+          &copy; {currentYear} Singapore Youth AI. All rights reserved.
         </p>
       </div>
     </footer>

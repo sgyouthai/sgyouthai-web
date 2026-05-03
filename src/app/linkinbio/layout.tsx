@@ -1,3 +1,5 @@
+import { currentYear } from "@/app/const";
+
 export default function LinkInBioLayout({
   children,
 }: {
@@ -7,7 +9,7 @@ export default function LinkInBioLayout({
     <>
       {children}
       <div className="text-center text-sm mt-auto py-4">
-        &copy; 2025 Singapore Youth AI
+        &copy; {currentYear} Singapore Youth AI
       </div>
     </>
   );

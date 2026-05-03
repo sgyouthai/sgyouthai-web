@@ -4,24 +4,22 @@ import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
 import { useEffect } from "react";
 
+const POSTHOG_API_HOST = "/relay-UYdl";
+const POSTHOG_UI_HOST =
+  process.env.NEXT_PUBLIC_POSTHOG_UI_HOST ?? "https://us.posthog.com";
+
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      process.env.NEXT_PUBLIC_POSTHOG_KEY &&
-      process.env.NEXT_PUBLIC_POSTHOG_HOST
-    ) {
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-        ui_host:
-          process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com",
-        api_host: "/relay-UYdl/",
+        api_host: POSTHOG_API_HOST,
+        ui_host: POSTHOG_UI_HOST,
+        defaults: "2025-05-24",
         person_profiles: "always",
         enable_heatmaps: true,
         autocapture: true,
         capture_pageleave: true,
-        capture_pageview: false,
-        advanced_disable_feature_flags: true,
-        advanced_disable_feature_flags_on_first_load: true,
+        capture_pageview: "history_change",
         loaded: (posthog) => {
           if (process.env.NODE_ENV === "development") posthog.debug(false);
         },

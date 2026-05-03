@@ -29,10 +29,6 @@ type TeamItem = {
 function normalizeGroupName(group: string | null) {
   if (!group) return "Team";
 
-  if (group.trim().toLowerCase() === "youth advisory council") {
-    return "Advisory";
-  }
-
   return group;
 }
 

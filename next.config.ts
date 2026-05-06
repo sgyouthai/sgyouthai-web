@@ -81,6 +81,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**.supabase.co" }],
+    minimumCacheTTL: 2678400, // 31 days
   },
 };
 

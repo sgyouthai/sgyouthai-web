@@ -33,7 +33,7 @@ export default function Hero() {
             </h1>
           </HeroReveal>
           <HeroReveal delay={0.08}>
-            <p className="text-current/60 max-w-md leading-[26px]">
+            <p className="text-current/60 max-w-lg leading-[26px]">
               Join over {totalMembers} of the brightest young minds from
               polytechnics, JCs and universities to shape the future of AI in Singapore.
             </p>

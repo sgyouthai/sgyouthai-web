@@ -9,10 +9,10 @@ const getPartners = unstable_cache(
     return (await caller.partners.getAll()) ?? [];
   },
   ["home-partners"],
-    {
+  {
     revalidate: 60 * 30,
     tags: ["home-partners"],
-  }
+  },
 );
 
 export default async function Partners() {

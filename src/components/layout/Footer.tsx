@@ -2,22 +2,28 @@ import Link from "next/link";
 import { Separator } from "@radix-ui/react-separator";
 import { currentYear } from "@/app/const";
 
+type FooterLink = {
+  name: string;
+  href: string;
+  isExternal?: boolean;
+};
+
 export default function Footer() {
-  const footerLinks = [
+  const footerLinks: { title: string; links: FooterLink[] }[] = [
     {
       title: "Company",
       links: [
         { name: "About", href: "/#about" },
         { name: "Team", href: "/#team" },
         { name: "Partners", href: "/#partners" },
-        { name: "Contact", href: "/#contact" },
+        { name: "Contact", href: "mailto:hello-archive@sgyouthai.org" },
       ],
     },
     {
       title: "Programs",
       links: [
         { name: "AI Monthly Meetups", href: "/programs#AIMM" },
-        { name: "AITimes", href: "https://t.me/sgyouthai", isExternal: true },
+        // { name: "AITimes", href: "https://t.me/sgyouthai", isExternal: true },
         { name: "SYAI Inspire", href: "/programs#Inspire" },
         { name: "SYAI Labs", href: "/programs#Labs" },
       ],
@@ -27,11 +33,11 @@ export default function Footer() {
       links: [
         { name: "Join Community", href: "https://t.me/sgyouthai" },
         { name: "Join Committee", href: "/signup/subcommittee" },
-        {
-          name: "Monthly Meetup",
-          href: "/link/aimm-signup",
-          isExternal: true,
-        },
+        // {
+        //   name: "Monthly Meetup",
+        //   href: "/link/aimm-signup",
+        //   isExternal: true,
+        // },
         { name: "Gallery", href: "/#gallery" },
       ],
     },

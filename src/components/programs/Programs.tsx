@@ -7,23 +7,24 @@ import Image from "next/image";
 export default function ProgramsBody() {
   const programs = [
     {
-      title: "AI Monthly Meetup",
+      title: "AI Monthly Meetups",
       description:
-        "Our monthly community event where youths gather to learn AI, showcase projects and network through talks, demos and discussions.",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MeetupAug25.jpeg",
+        "Our monthly community event brings youths together to learn about AI, showcase projects and connect through talks, demonstrations and discussions.",
+      src: "/gallery/MeetupAug25.jpeg",
       cta: "/programs#AIMM",
     },
     {
       title: "SYAI Inspire",
       description:
-        "Our youth-led outreach programme that trains youths in AI and empowers them to teach school students through talks and workshops.",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/NewTownPresentation.jpg",
+        "Our youth-led outreach programme trains youths in AI and empowers them to engage school students through talks and workshops.",
+      src: "/gallery/NewTownPresentation.jpg",
       cta: "/programs#Inspire",
     },
     {
       title: "SYAI Labs",
-      description: "Coming Soon!",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/meetupMar.jpg",
+      description:
+        "Our youth-led research initiative enables students to explore AI through hands-on projects, expert mentorship and real-world problem-solving.",
+      src: "/gallery/syai_labs.jpg",
       cta: "/programs#Labs",
     },
   ];

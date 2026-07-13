@@ -23,6 +23,8 @@ const getGallery = cache(async () => {
       "/gallery/syaigathering3.png",
       "/gallery/mindfulhacksxsyai2.png",
       "/gallery/deepracedash2.png",
+      "/gallery/syai_labs_wip.jpg",
+      "/gallery/syai_labs.jpg",
     ];
   }
 

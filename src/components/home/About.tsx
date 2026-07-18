@@ -33,8 +33,8 @@ function StatItem({ stat }: { stat: Stat }) {
 export default function About() {
   const stats: Stat[] = [
     { to: totalMembers, suffix: "+", label: "Members" },
-    { to: 4000, suffix: "+", label: "Youths Reached" },
-    { to: 8, label: "Academic Partners" },
+    { to: 5000, suffix: "+", label: "Youths Reached" },
+    { to: 10, label: "Academic Partners" },
     {
       to: 64.3,
       prefix: "$",

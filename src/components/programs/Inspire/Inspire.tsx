@@ -3,7 +3,7 @@
 import { Reveal } from "@/components/motion/Reveal";
 import BlueHighlighter from "@/components/BlueHighlight";
 import Link from "next/link";
-import { InspireCarousel } from "./InspireCarousel";
+import ImageCarousel from "@/components/ImageCarousel";
 import { BsPatchCheckFill } from "react-icons/bs";
 import CustomButton from "@/components/CustomButton";
 
@@ -71,50 +71,50 @@ export default function Inspire() {
   const intervalMs = 3000;
   const bootcampImages = [
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/BootcampAISGTeach.jpg",
+      src: "/gallery/BootcampAISGTeach.jpg",
       alt: "Bootcamp Lecture",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/Bootcamp.jpg",
+      src: "/gallery/Bootcamp.jpg",
       alt: "Bootcamp Group Photo",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/BootcampKahoot.jpg",
+      src: "/gallery/BootcampKahoot.jpg",
       alt: "Bootcamp Kahoot",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/BootcampPresentation.jpg",
+      src: "/gallery/BootcampPresentation.jpg",
       alt: "Bootcamp Presentation",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/BootcampPresentation2.jpg",
+      src: "/gallery/BootcampPresentation2.jpg",
       alt: "Bootcamp Presentation",
     },
   ];
 
   const inspireImages = [
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/NewTownSharing.jpg",
+      src: "/gallery/NewTownSharing.jpg",
       alt: "NewTown Sharing",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/NewTownPresentation.jpg",
+      src: "/gallery/NewTownPresentation.jpg",
       alt: "NewTown Presentation",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/NewTownTeam.jpg",
+      src: "/gallery/NewTownTeam.jpg",
       alt: "NewTown Team",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/SchoolSharing.jpg",
+      src: "/gallery/SchoolSharing.jpg",
       alt: "NewTown Team",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/cedar1.png",
+      src: "/gallery/cedar1.png",
       alt: "Cedar Girls 1",
     },
     {
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/cedar2.png",
+      src: "/gallery/cedar2.png",
       alt: "Cedar Girls 2",
     },
   ];
@@ -146,7 +146,7 @@ export default function Inspire() {
         >
           <div className="order-2 md:order-1 w-full relative h-full gap-5 p-[10px] rounded-[25px] flex border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
             <BlueHighlighter />
-            <InspireCarousel
+            <ImageCarousel
               images={bootcampImages}
               intervalMs={intervalMs}
               className="w-full max-w-3xl"
@@ -202,7 +202,7 @@ export default function Inspire() {
         >
           <div className="order-2 md:order-2 w-full relative h-full gap-5 p-[10px] rounded-[25px] flex border border-white/10 bg-gradient-to-b from-blue-500/10 to-blue-500/5 backdrop-blur-[5px] shadow-xl">
             <BlueHighlighter />
-            <InspireCarousel
+            <ImageCarousel
               images={inspireImages}
               intervalMs={intervalMs}
               className="w-full max-w-3xl"
@@ -245,7 +245,9 @@ export default function Inspire() {
             </div>
             <CustomButton asChild className="w-fit">
               <Link
-                href={"mailto:inspire@sgyouthai.org?subject=SYAI Inspire Inquiry"}
+                href={
+                  "mailto:inspire@sgyouthai.org?subject=SYAI Inspire Inquiry"
+                }
               >
                 Reach Out to Inspire
               </Link>

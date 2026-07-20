@@ -29,48 +29,48 @@ export default function AIMM() {
     {
       title: "Monthly Meetup Jan 25",
       topic: "Fireside Chat with Dr. Mukundan A P & Mr. Mohammed Khambhati",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/meetup.jpg",
+      src: "/gallery/meetup.jpg",
     },
     {
       title: "Monthly Meetup Feb 25",
       topic: "AI Project Showcase",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MonthlyMeetupFeb.jpg",
+      src: "/gallery/MonthlyMeetupFeb.jpg",
     },
     {
       title: "Monthly Meetup Mar 25",
       topic: '"Resume Roasting" by Ms. Lim Mei Yu',
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/meetupMar.jpg",
+      src: "/gallery/meetupMar.jpg",
     },
     {
       title: "Monthly Meetup Apr 25",
       topic: "AI Startup Pitching",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/meetupApr.jpg",
+      src: "/gallery/meetupApr.jpg",
     },
     // {
     //   title: "Monthly Meetup May 25",
     //   topic: "Fireside Chat at ATxSummit: AI Student Developer Conference 2025",
-    //   src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/meetupApr.jpg",
+    //   src: "/gallery/meetupApr.jpg",
     // },
     {
       title: "Monthly Meetup Jun 25",
       topic: "Vibe Coding Workshop",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MonthlyAIMeetupJun.jpg",
+      src: "/gallery/MonthlyAIMeetupJun.jpg",
     },
     {
       title: "Monthly Meetup Jul 25",
       topic:
         "SG60 Special: Multiligual AI by A* Star MERaLiON & Speech Synthesis by ElevenLabs",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MeetupJuly.jpg",
+      src: "/gallery/MeetupJuly.jpg",
     },
     {
       title: "Monthly Meetup Aug 25",
       topic: "AI Youth Startups Showcase @ SMU",
-      src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MeetupAug25.jpeg",
+      src: "/gallery/MeetupAug25.jpeg",
     },
     // {
     //   title: "Monthly Meetup Sep 25",
     //   topic: "Fireside Chat with Ms. Assel Mussagaliyeva-Tang",
-    //   src: "https://zbzfzyaozhjskrizhcsc.supabase.co/storage/v1/object/public/syai-web/gallery/MeetupAug25.jpeg",
+    //   src: "/gallery/MeetupAug25.jpeg",
     // },
   ];
 
@@ -127,6 +127,7 @@ export default function AIMM() {
       <Reveal delay={0.16}>
         <div className="w-[100dvw]">
           <Marquee
+            speed={50}
             autoFill
             pauseOnHover
             className="

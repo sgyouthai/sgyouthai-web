@@ -6,6 +6,7 @@ export const teamRouter = createTRPCRouter({
     const query = ctx.supabase
       .from("team")
       .select("*")
+      .neq("group", "Subcommittee")
       .order("group", { ascending: true })
       .order("display_order", { ascending: true });
 

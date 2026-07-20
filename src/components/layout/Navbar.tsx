@@ -120,6 +120,19 @@ export default function SiteNavbar() {
     lastY.current = window.scrollY;
   };
 
+  const handleHashLink = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const [targetPath, targetHash] = href.split("#");
+
+    if (targetPath === pathname && targetHash) {
+      event.preventDefault();
+      window.history.pushState(null, "", href);
+      window.dispatchEvent(new Event("hashchange"));
+    }
+  };
+
   useEffect(() => {
     setMounted(true);
 
@@ -246,8 +259,12 @@ export default function SiteNavbar() {
                           <DropdownMenuItem key={c.href} asChild>
                             <Link
                               href={c.href}
+                              scroll={false}
                               className="w-full text-[16px] font-normal"
-                              onClick={() => holdNav(1200)}
+                              onClick={(event) => {
+                                holdNav(1200);
+                                handleHashLink(event, c.href);
+                              }}
                             >
                               {c.label}
                             </Link>
@@ -402,9 +419,11 @@ export default function SiteNavbar() {
                                     <Link
                                       key={c.href}
                                       href={c.href}
+                                      scroll={false}
                                       className="rounded-md px-3 py-2 text-sm text-white/80 hover:text-white"
-                                      onClick={() => {
+                                      onClick={(event) => {
                                         holdNav(1200);
+                                        handleHashLink(event, c.href);
                                         setMobileOpen(false);
                                       }}
                                     >

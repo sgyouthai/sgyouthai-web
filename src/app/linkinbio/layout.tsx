@@ -1,4 +1,20 @@
 import { currentYear } from "@/app/const";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Official Links",
+  description:
+    "Find Singapore Youth AI's official community, event, program, and social links.",
+  alternates: {
+    canonical: "/linkinbio",
+  },
+  openGraph: {
+    url: "/linkinbio",
+    title: "Singapore Youth AI Official Links",
+    description:
+      "Find Singapore Youth AI's official community, event, program, and social links.",
+  },
+};
 
 export default function LinkInBioLayout({
   children,

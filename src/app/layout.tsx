@@ -40,9 +40,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Singapore Youth AI" }],
   creator: "Singapore Youth AI",
   publisher: "Singapore Youth AI",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     url: siteUrl,
@@ -146,11 +143,6 @@ function WebSiteJsonLd() {
     "@type": "WebSite",
     name: "Singapore Youth AI",
     url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
   return (
     <script

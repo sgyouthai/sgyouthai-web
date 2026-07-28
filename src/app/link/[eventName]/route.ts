@@ -39,6 +39,7 @@ function ogHtml(opts: {
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>${escapeHtml(title || "Redirecting…")}</title>
 
     <meta property="og:type" content="website" />
@@ -80,8 +81,13 @@ export async function GET(req: Request, context: any) {
 
   try {
     link = await t.shortLinks.getByCode({ code });
-  } catch (e) {
-    return new NextResponse("Not found", { status: 404 });
+  } catch {
+    return new NextResponse("Not found", {
+      status: 404,
+      headers: {
+        "x-robots-tag": "noindex, nofollow",
+      },
+    });
   }
 
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "";
@@ -104,6 +110,7 @@ export async function GET(req: Request, context: any) {
         headers: {
           "content-type": "text/html; charset=utf-8",
           "cache-control": "public, max-age=300",
+          "x-robots-tag": "noindex, nofollow",
         },
       }
     );
@@ -124,5 +131,8 @@ export async function GET(req: Request, context: any) {
     },
   });
 
-  return NextResponse.redirect(link.long_url, { status: 302 });
+  const response = NextResponse.redirect(link.long_url, { status: 302 });
+  response.headers.set("x-robots-tag", "noindex, nofollow");
+
+  return response;
 }

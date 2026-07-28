@@ -6,6 +6,13 @@ import EventGallery from "@/components/home/EventGallery/EventGallery";
 import GradientSeparator from "@/components/GradientSeparator";
 import { Suspense } from "react";
 import ProgramsBody from "@/components/programs/Programs";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function HomePage() {
   return (
